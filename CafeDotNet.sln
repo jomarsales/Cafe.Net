@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Presentation", "00 - P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeDotNet.Web", "src\CafeDotNet.Web\CafeDotNet.Web.csproj", "{9DB08394-BEF0-49E1-9C5E-974DF004B200}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeDotNet.Infra.Logging", "src\CafeDotNet.Infra.Logging\CafeDotNet.Infra.Logging.csproj", "{72BEE060-855A-43F5-B9B6-53D0864B9EA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{9DB08394-BEF0-49E1-9C5E-974DF004B200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DB08394-BEF0-49E1-9C5E-974DF004B200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DB08394-BEF0-49E1-9C5E-974DF004B200}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72BEE060-855A-43F5-B9B6-53D0864B9EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BEE060-855A-43F5-B9B6-53D0864B9EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BEE060-855A-43F5-B9B6-53D0864B9EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BEE060-855A-43F5-B9B6-53D0864B9EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{A06D28D3-6A54-4ABB-9B44-30F403CFEF93} = {FBE964F9-5B8B-4B5B-96AC-018728AF11C1}
 		{91C5213C-5AA2-4F02-BEBA-13C4B765302D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9DB08394-BEF0-49E1-9C5E-974DF004B200} = {91C5213C-5AA2-4F02-BEBA-13C4B765302D}
+		{72BEE060-855A-43F5-B9B6-53D0864B9EA7} = {FBE964F9-5B8B-4B5B-96AC-018728AF11C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22759E41-F952-4875-A6BC-BDC43D0C842E}

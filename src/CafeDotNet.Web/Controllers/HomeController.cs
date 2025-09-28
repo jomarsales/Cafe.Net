@@ -15,11 +15,13 @@ namespace CafeDotNet.Web.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Custom Information: Index page visited at {Time}", DateTime.UtcNow);
             return View();
         }
 
         public IActionResult Privacy()
         {
+            throw new InvalidOperationException("Erro ao tentar acessar a página de privacidade.");
             return View();
         }
 
