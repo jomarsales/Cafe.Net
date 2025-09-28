@@ -15,13 +15,22 @@ namespace CafeDotNet.Web.Controllers
 
         public IActionResult Index()
         {
-            _logger.LogInformation("Custom Information: Index page visited at {Time}", DateTime.UtcNow);
+            ViewData["HeaderBackground"] = Url.Content("~/img/home-bg.jpg");
+
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
-            throw new InvalidOperationException("Erro ao tentar acessar a página de privacidade.");
+            ViewData["HeaderBackground"] = Url.Content("~/img/about-bg.jpg");
+
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            ViewData["HeaderBackground"] = Url.Content("~/img/contact-bg.jpg");
+
             return View();
         }
 

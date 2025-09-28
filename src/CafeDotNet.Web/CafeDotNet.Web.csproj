@@ -10,4 +10,8 @@
     <ProjectReference Include="..\CafeDotNet.Infra.Logging\CafeDotNet.Infra.Logging.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
 </Project>
