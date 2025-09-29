@@ -15,7 +15,7 @@ namespace CafeDotNet.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewData["HeaderBackground"] = Url.Content("~/img/home-bg-code.jpg");
+            ViewData["HeaderBackground"] = Url.Content("~/img/home-bg.jpg");
 
             return View();
         }
