@@ -15,23 +15,47 @@ namespace CafeDotNet.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewData["HeaderBackground"] = Url.Content("~/img/home-bg.jpg");
+            var model = new PageViewModel
+            {
+                Header = HeaderViewModel.Create(
+                    bannerImagemPath: Url.Content("~/img/home-bg.jpg"),
+                    logoTitleImagemPath: Url.Content("~/img/svg/logo-full-black.svg"),
+                    title: "Cafe.Net",
+                    subTitle: "Inspirando desenvolvedores .NET a codificar melhor, criar mais e inovar sempre"
+                )
+            };
 
-            return View();
+            return View(model);
         }
 
         public IActionResult About()
         {
-            ViewData["HeaderBackground"] = Url.Content("~/img/about-bg.jpg");
+            var model = new PageViewModel
+            {
+                Header = HeaderViewModel.Create(
+                    bannerImagemPath: Url.Content("~/img/about-bg.jpg"),
+                    logoTitleImagemPath: Url.Content("~/img/svg/logo-full-white.svg"),
+                    title: "Cafe.Net - Sobre mim",
+                    subTitle: "Entre uma xícara de café e outra, escrevo código que inspira"
+                )
+            };
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Contact()
         {
-            ViewData["HeaderBackground"] = Url.Content("~/img/contact-bg.jpg");
+            var model = new PageViewModel
+            {
+                Header = HeaderViewModel.Create(
+                    bannerImagemPath: Url.Content("~/img/contact-bg.jpg"),
+                    logoTitleImagemPath: Url.Content("~/img/svg/logo-yellow-black.svg"),
+                    title: "Cafe.Net - Contato",
+                    subTitle: "Manda uma mensagem, eu preparo o café"
+                )
+            };
 
-            return View();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

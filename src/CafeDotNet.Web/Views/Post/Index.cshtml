@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Post Page";
+﻿@model PageViewModel
+
+@{
+    ViewData["Title"] = Model.Header.Title;
 }
 
-<partial name="_Header" />
+<partial name="_Header" model="Model.Header" />
 
 <article class="mb-4">
     <div class="container px-4 px-lg-5">

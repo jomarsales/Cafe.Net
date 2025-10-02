@@ -15,9 +15,17 @@ namespace CafeDotNet.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewData["HeaderBackground"] = Url.Content("~/img/post-bg.jpg");
+            var model = new PageViewModel
+            {
+                Header = HeaderViewModel.Create(
+                    bannerImagemPath: Url.Content("~/img/post-bg.jpg"),
+                    logoTitleImagemPath: Url.Content("~/img/svg/logo-border-black.svg"),
+                    title: "Cafe.Net - Post",
+                    subTitle: "Reflexões servidas com código e café gourmet"
+                )
+            };
 
-            return View();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

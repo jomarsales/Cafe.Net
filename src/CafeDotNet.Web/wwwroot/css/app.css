@@ -12396,4 +12396,27 @@ header.masthead {
         z-index: 2;
     }
 
+.site-heading img {
+    max-width: 100%; 
+    height: auto; 
+    display: block;
+    margin: 0 auto;
+}
+
+.site-heading .subheading {
+    display: block; /* garante que se comporte como bloco */
+    font-size: clamp(0.9rem, 2.5vw, 1.5rem);
+    line-height: 1.3;
+}
+
+@media (max-width: 576px) {
+    .site-heading img {
+        max-width: 80%; /* reduz a logo só no mobile */
+    }
+
+    .site-heading .subheading {
+        font-size: 1rem;
+    }
+}
+
 /* END App Styles */

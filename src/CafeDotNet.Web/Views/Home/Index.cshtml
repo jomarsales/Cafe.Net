@@ -1,8 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model PageViewModel
+
+@{
+    ViewData["Title"] = Model.Header.Title;
 }
 
-<partial name="_Header" />
+<partial name="_Header" model="Model.Header" />
 
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
