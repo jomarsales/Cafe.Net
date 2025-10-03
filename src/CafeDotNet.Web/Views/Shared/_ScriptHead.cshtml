@@ -46,32 +46,30 @@
     <meta name="theme-color" content="#6f4e37" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    @Html.Raw(@"
-            < script type = ""application / ld + json"" >
-            {
-            ""@context"": ""https://schema.org"",
-            ""@type"": ""WebSite"",
-            ""name"": ""Café.Net"",
-            ""url"": ""https://www.cafedotnet.com.br/"",
-            ""publisher"": {
-                ""@type"": ""Organization"",
-            ""name"": ""J3D Soluções"",
-            ""logo"": {
-                    ""@type"": ""ImageObject"",
-            ""url"": ""https://www.cafedotnet.com.br/icons/icon-180.png""
+    <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "WebSite",
+          "name": "Café.Net",
+          "url": "https://www.cafedotnet.com.br/",
+          "publisher": {
+            "@@type": "Organization",
+            "name": "J3D Soluções",
+            "logo": {
+              "@@type": "ImageObject",
+              "url": "https://www.cafedotnet.com.br/icons/icon-180.png"
             }
-            },
-            ""potentialAction"": {
-                ""@type"": ""SearchAction"",
-            ""target"": ""https://www.cafedotnet.com.br/busca?q={search_term_string}"",
-                ""query - input"": ""required name = search_term_string""
-            },
-            ""sameAs"": [
-            ""https://www.facebook.com/cafedotnet"",
-            ""https://www.instagram.com/cafedotnet"",
-            ""https://www.linkedin.com/company/cafedotnet""
-            ]
-            }
-            </ script >
-        ")
+          },
+          "potentialAction": {
+            "@@type": "SearchAction",
+            "target": "https://www.cafedotnet.com.br/busca?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          },
+          "sameAs": [
+            "https://www.facebook.com/cafedotnet",
+            "https://www.instagram.com/cafedotnet",
+            "https://www.linkedin.com/company/cafedotnet"
+          ]
+        }
+    </script>
 </head>
