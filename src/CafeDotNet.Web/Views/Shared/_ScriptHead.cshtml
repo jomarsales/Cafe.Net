@@ -1,28 +1,6 @@
 ﻿<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Café.Net, onde você pode apreciar novidades gourmet sobre Tecnologia e Análise de Desenvolvimento em Sistemas saboreando um delicioso café!" />
-    <meta name="author" content="Café.Net é um oferecimento de J3D Soluções" />
-    <title>@ViewData["Title"] | Café.Net</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <environment include="Development">
-        <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="~/dist/app.min.css" asp-append-version="true" />
-    </environment>
-    <link rel="stylesheet" href="~/CafeDotNet.Web.styles.css" asp-append-version="true" />
-</head>
-
-
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <title>@ViewData["Title"] | Café.Net - Tecnologia, Desenvolvimento de Sistemas e Café Gourmet</title>
     <meta name="description" content="Café.Net, onde você pode apreciar novidades gourmet sobre Tecnologia e Análise de Desenvolvimento em Sistemas saboreando um delicioso café!" />
@@ -68,30 +46,32 @@
     <meta name="theme-color" content="#6f4e37" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Café.Net",
-          "url": "https://www.cafedotnet.com.br/",
-          "publisher": {
-            "@type": "Organization",
-            "name": "J3D Soluções",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://www.cafedotnet.com.br/icons/icon-180.png"
+    @Html.Raw(@"
+            < script type = ""application / ld + json"" >
+            {
+            ""@context"": ""https://schema.org"",
+            ""@type"": ""WebSite"",
+            ""name"": ""Café.Net"",
+            ""url"": ""https://www.cafedotnet.com.br/"",
+            ""publisher"": {
+                ""@type"": ""Organization"",
+            ""name"": ""J3D Soluções"",
+            ""logo"": {
+                    ""@type"": ""ImageObject"",
+            ""url"": ""https://www.cafedotnet.com.br/icons/icon-180.png""
             }
-          },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.cafedotnet.com.br/busca?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          },
-          "sameAs": [
-            "https://www.facebook.com/cafedotnet",
-            "https://www.instagram.com/cafedotnet",
-            "https://www.linkedin.com/company/cafedotnet"
-          ]
-        }
-    </script>
+            },
+            ""potentialAction"": {
+                ""@type"": ""SearchAction"",
+            ""target"": ""https://www.cafedotnet.com.br/busca?q={search_term_string}"",
+                ""query - input"": ""required name = search_term_string""
+            },
+            ""sameAs"": [
+            ""https://www.facebook.com/cafedotnet"",
+            ""https://www.instagram.com/cafedotnet"",
+            ""https://www.linkedin.com/company/cafedotnet""
+            ]
+            }
+            </ script >
+        ")
 </head>
