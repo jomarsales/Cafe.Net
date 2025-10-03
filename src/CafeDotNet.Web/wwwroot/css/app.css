@@ -12438,4 +12438,8 @@ header.masthead {
     }
 }
 
+.navbar-brand img{
+    width: 100px;
+}
+
 /* END App Styles */

@@ -1,0 +1,29 @@
+﻿{
+  "name": "Café.Net",
+  "short_name": "Café.Net",
+  "description": "Café.Net, onde você pode apreciar novidades gourmet sobre Tecnologia e Desenvolvimento em Sistemas saboreando um delicioso café!",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#6f4e37",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
