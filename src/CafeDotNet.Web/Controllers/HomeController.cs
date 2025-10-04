@@ -1,3 +1,6 @@
+using CafeDotNet.Infra.Mail.Interfaces;
+using CafeDotNet.Web.Enums;
+using CafeDotNet.Web.Helpers;
 using CafeDotNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,12 +10,15 @@ namespace CafeDotNet.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IEmailService _emailService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IEmailService emailService)
         {
             _logger = logger;
+            _emailService = emailService;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var model = new PageViewModel
@@ -29,6 +35,7 @@ namespace CafeDotNet.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult About()
         {
             var model = new PageViewModel
@@ -45,20 +52,34 @@ namespace CafeDotNet.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Contact()
         {
-            var model = new PageViewModel
-            {
-                Header = HeaderViewModel.Create(
-                    bannerImagemPath: Url.Content("~/img/contact-bg.jpg"),
-                    "bg-logo-light",
-                    logoTitleImagemPath: Url.Content("~/img/svg/logo-full-black.svg"),
-                    title: "Cafe.Net - Contato",
-                    subTitle: "Manda uma mensagem, eu preparo o café"
-                )
-            };
+            return View(new ContactViewModel());
+        }
 
-            return View(model);
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var body = _emailService.CreateEmailBody(model.Name, model.Email, model.Message);
+
+                await _emailService.SendEmailAsync("cafedotnetcontact@gmail.com", $"Nova mensagem de {model.Email}", body);
+
+                this.SetAlert("Mensagem enviada com sucesso! Entraremos em contato em breve.", AlertType.Success);
+            }
+            catch (Exception ex)
+            {
+                this.SetAlert($"Ocorreu um erro: {ex.Message}", AlertType.Danger);
+            }
+
+            return RedirectToAction(nameof(Contact));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

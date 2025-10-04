@@ -1,10 +1,15 @@
 using CafeDotNet.Infra.Logging.Helpers;
+using CafeDotNet.Infra.Mail.Helpers;
+using CafeDotNet.Infra.Bootstraper.Helpers; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.AddCustomSerilog();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddCustomEmailSettings(builder.Configuration);
+
+builder.Services.AddEmailServices();
 
 var app = builder.Build();
 
@@ -12,10 +17,6 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
 }
 
 app.UseHttpsRedirection();

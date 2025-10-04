@@ -7,11 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CafeDotNet.Infra.Bootstraper\CafeDotNet.Infra.Bootstraper.csproj" />
     <ProjectReference Include="..\CafeDotNet.Infra.Logging\CafeDotNet.Infra.Logging.csproj" />
+    <ProjectReference Include="..\CafeDotNet.Infra.Mail\CafeDotNet.Infra.Mail.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
 </Project>

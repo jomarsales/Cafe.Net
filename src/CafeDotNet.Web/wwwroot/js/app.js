@@ -14,19 +14,16 @@
 
     function setLogo() {
         if (isMobileWidth()) {
-            // no mobile sempre usa a scrolled
             logo.src = logoScrolled;
         }
     }
 
     window.addEventListener('scroll', function () {
         if (isMobileWidth()) {
-            // mobile ignora scroll
             logo.src = logoScrolled;
             return;
         }
 
-        // comportamento desktop
         const currentTop = document.body.getBoundingClientRect().top * -1;
 
         if (currentTop < scrollPos) {
@@ -49,7 +46,41 @@
         scrollPos = currentTop;
     });
 
-    // aplica logo certa ao carregar e redimensionar
     setLogo();
     window.addEventListener('resize', setLogo);
+});
+
+setTimeout(function () {
+    var alertEl = document.getElementById('topAlert');
+    if (alertEl) {
+        var bsAlert = bootstrap.Alert.getOrCreateInstance(alertEl);
+        bsAlert.close();
+    }
+}, 5000);
+
+$(function () {
+    function updateIcons() {
+        $("input, textarea").each(function () {
+            var id = $(this).attr("id");
+            var icon = $("#icon-" + id);
+
+            $(this).valid();
+
+            var error = $("#error-" + id).text().trim();
+
+            if (!error) {
+                icon.removeClass("fa-meh text-secondary fa-times text-danger").addClass("fa-check text-success");
+            } else {
+                icon.removeClass("fa-meh text-secondary fa-check text-success").addClass("fa-times text-danger");
+            }
+        });
+    }
+
+    $("input, textarea").each(function () {
+        var id = $(this).attr("id");
+        $("#icon-" + id).removeClass("fa-check fa-times text-success text-danger").addClass("fa-meh text-secondary");
+    });
+
+    $("form").on("submit", function () { setTimeout(updateIcons, 10); });
+    $("input, textarea").on("input blur keyup", updateIcons); 
 });

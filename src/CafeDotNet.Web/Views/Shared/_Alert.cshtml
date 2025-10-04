@@ -1,0 +1,16 @@
+﻿@using CafeDotNet.Web.Helpers
+@using Newtonsoft.Json
+
+@{
+    var alert = (TempData["AlertMessage"] != null)
+        ? JsonConvert.DeserializeObject<AlertMessage>((string)TempData["AlertMessage"])
+        : null;
+}
+
+@if (alert != null)
+{
+    <div data-aos="flip-up" id="topAlert" class="@alert.CssClass alert-dismissible fade show fixed-top mx-auto w-auto" style="top: 20px; max-width: 400px; z-index: 1050; text-align:center;" role="alert">
+        @alert.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
