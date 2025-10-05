@@ -12451,4 +12451,36 @@ header.masthead {
     text-align: center;
 }
 
+.pagination {
+    margin-bottom: 0;
+    display: flex;
+    gap: 0.25rem;
+}
+
+    .pagination .page-item .page-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid #0085A1;
+        border-radius: 0.375rem;
+        color: #0085A1;
+        background-color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+    }
+
+        .pagination .page-item .page-link:hover {
+            background-color: #0085A1;
+            color: #fff;
+            border-color: #0085A1;
+        }
+
+    .pagination .page-item.active .page-link {
+        background-color: #0085A1;
+        color: #fff;
+        border-color: #0085A1;
+    }
+
 /* END App Styles */

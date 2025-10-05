@@ -1,19 +1,38 @@
-﻿using CafeDotNet.Web.Models;
+﻿using CafeDotNet.Core.Articles.ValueObjects;
+using CafeDotNet.Core.Helpers;
+using CafeDotNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace CafeDotNet.Web.Controllers
 {
-    public class PostController : Controller
+    public class PostController : BaseController
     {
-        private readonly ILogger<PostController> _logger;
+        private readonly List<ArticleListItemDto> _mockArtigos;
 
-        public PostController(ILogger<PostController> logger)
+        public PostController(ILogger<PostController> logger) : base(logger)
         {
-            _logger = logger;
+            _mockArtigos = Enumerable.Range(1, 27)
+                .Select(i => new ArticleListItemDto(i, $"Artigo de Exemplo #{i}", i % 2 == 0 ? "Um subtítulo opcional" : ""))
+                .ToList();
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [Route("Artigos/Pagina/{page:int}")]
+        public IActionResult Index(int page = 1)
+        {
+            var paginatedList = PaginatedList<ArticleListItemDto>.Create(_mockArtigos, page);
+            //var paginatedList = PaginatedList<Article>.CreateAsync(_context.Artigos.AsNoTracking(), pagina, itensPorPagina);
+
+            var viewModel = new ArticleListPageViewModel
+            {
+                Articles = paginatedList
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Post()
         {
             var model = new PageViewModel
             {
@@ -27,12 +46,6 @@ namespace CafeDotNet.Web.Controllers
             };
 
             return View(model);
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
