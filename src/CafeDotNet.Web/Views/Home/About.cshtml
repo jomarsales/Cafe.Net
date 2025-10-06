@@ -1,18 +1,106 @@
 ﻿@model PageViewModel
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 @{
     ViewData["Title"] = Model.Header.Title;
 }
 
 <partial name="_Header" model="Model.Header" />
 
-<main class="mb-4">
+<main class="about-section py-5">
     <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-md-10 col-lg-8 col-xl-7">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <h2 class="text-center mb-4">Jomar Sales</h2>
+
+                <p>Sou Arquiteto de Softwares .NET e entusiasta da engenharia de software desde 1999, quando iniciei minha jornada no setor de tecnologia. Desde então, desenvolvi uma profunda paixão por programação, análise de sistemas e arquitetura de software, buscando sempre unir boas práticas, design limpo e soluções eficientes.</p>
+                <p>Ao longo da minha carreira, adquiri ampla experiência em análise e desenvolvimento de sistemas complexos, com foco em aplicações web, integração de sistemas e automação de processos. Atuo na definição de arquiteturas escaláveis, implementação de padrões de projeto, DDD, TDD e Clean Architecture, garantindo código limpo, testável e de alta qualidade.</p>
+                <p>Tenho experiência na liderança técnica de equipes de desenvolvimento, revisão de código, gerenciamento de pipelines CI/CD e aplicação de metodologias ágeis como SCRUM. Também atuei como consultor técnico, auxiliando equipes a adotarem melhores práticas de desenvolvimento, melhorar a produtividade e a qualidade do software entregue.</p>
+                <p>Durante minha trajetória, participei de projetos envolvendo desenvolvimento em C#, ASP.NET Core, MVC, APIs REST, bancos de dados relacionais (SQL Server, MySQL) e ferramentas de UI e relatórios. Além disso, sou entusiasta da evolução tecnológica, mantendo-me atualizado com cursos, certificações e estudos constantes em engenharia de software e metodologias modernas.</p>
+                <p class="mt-4">A <strong>Café.Net</strong> é uma extensão desse conhecimento: um espaço para compartilhar experiências técnicas, melhores práticas de desenvolvimento e soluções práticas, com o objetivo de ajudar outros desenvolvedores e líderes a construírem sistemas mais eficientes, escaláveis e de qualidade.</p>
+
+                <div class="text-center mt-5">
+                    <a asp-controller="Post" asp-action="Index" asp-route-page="1" class="btn btn-primary px-4 py-2 rounded-pill">Ler meus artigos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha do Tempo -->
+        <div class="timeline mt-5">
+            <h3 class="text-center mb-5">Minha Trajetória</h3>
+
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item left">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-cpu"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>1999</h4>
+                    <p>Início na área de TI no setor de CPD - SEMEC Linhares-ES, primeiros contatos com automação e infraestrutura.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-code-slash"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>2004</h4>
+                    <p>Bacharelado em Sistemas de Informação e descoberta da paixão pela programação.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-mortarboard"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>2007–2011</h4>
+                    <p>Especializações em Gestão de Projetos (FACELI) e Informática na Educação (IFES).</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-building"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>2009–2019</h4>
+                    <p>Objetiva Soluções e Franquias: PDV, PAC-ECF, TEF, Emissão de NFe, C#, SQL Server.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-award"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>2012</h4>
+                    <p>Certificação MCTS Web 2.0 e especialização em Microsoft SQL Server pela Mindworks.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item right">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-lightning-charge"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>2020–2025</h4>
+                    <p>WTEC Energy - Tech Lead, ASP.NET MVC, Asp Net Core, DevExpress, MySQL, SCRUM, Feature Toogle, Identity Server, CI/CD, DevOps.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item left">
+                <div class="timeline-icon bg-primary text-white">
+                    <i class="bi bi-cup-hot"></i>
+                </div>
+                <div class="timeline-content">
+                    <h4>Atualmente</h4>
+                    <p>Consultor técnico e fundador da Café.Net.</p>
+                    <p>Objetiva Soluções e Franquias.</p>
+                </div>
             </div>
         </div>
     </div>
