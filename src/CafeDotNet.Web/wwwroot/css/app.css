@@ -12590,4 +12590,18 @@ header.masthead {
         }
 }
 
+.about-sidebar {
+    position: sticky;
+    top: 100px; /* fica visível ao rolar */
+    transition: transform 0.3s ease;
+}
+
+    .about-sidebar:hover {
+        transform: translateY(-4px);
+    }
+
+.about-section {
+    background-color: #f8f9fa;
+}
+
 /* END App Styles */
