@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CafeDotNet.Core\CafeDotNet.Core.csproj" />
     <ProjectReference Include="..\CafeDotNet.Infra.Bootstraper\CafeDotNet.Infra.Bootstraper.csproj" />
     <ProjectReference Include="..\CafeDotNet.Infra.Logging\CafeDotNet.Infra.Logging.csproj" />
     <ProjectReference Include="..\CafeDotNet.Infra.Mail\CafeDotNet.Infra.Mail.csproj" />
+    <ProjectReference Include="..\CafeDotNet.Manager\CafeDotNet.Manager.csproj" />
   </ItemGroup>
 
   <ItemGroup>

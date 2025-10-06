@@ -1,4 +1,4 @@
-﻿namespace CafeDotNet.Core.Helpers;
+﻿namespace CafeDotNet.Manager.Helpers;
 
 public class PaginatedList<T> : List<T>
 {

@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <Folder Include="Articles\Entities\" />
-    <Folder Include="Articles\Managers\" />
+    <Folder Include="Articles\DomainServices\" />
     <Folder Include="Articles\Repositories\" />
+    <Folder Include="Articles\ValueObjects\" />
   </ItemGroup>
 
 </Project>

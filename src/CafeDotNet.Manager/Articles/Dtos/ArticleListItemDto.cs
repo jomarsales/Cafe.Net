@@ -1,4 +1,4 @@
-﻿namespace CafeDotNet.Core.Articles.ValueObjects
+﻿namespace CafeDotNet.Manager.Articles.Dtos
 {
     public class ArticleListItemDto
     {

@@ -1,5 +1,5 @@
-﻿using CafeDotNet.Core.Articles.ValueObjects;
-using CafeDotNet.Core.Helpers;
+﻿using CafeDotNet.Manager.Articles.Dtos;
+using CafeDotNet.Manager.Helpers;
 using CafeDotNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
