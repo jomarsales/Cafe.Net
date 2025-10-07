@@ -7,9 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddCustomSerilog();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddCustomEmailSettings(builder.Configuration);
 
-builder.Services.AddEmailServices();
+builder.Services.AddCustomEmailSettings(builder.Configuration);
+builder.Services.AddDatabaseProvider(builder.Configuration);
+
+builder.Services.RegisterEmailServices();
+builder.Services.RegisterDatabaseServices();
 
 var app = builder.Build();
 

@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeDotNet.Infra.Mail", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeDotNet.Infra.Bootstraper", "src\CafeDotNet.Infra.Bootstraper\CafeDotNet.Infra.Bootstraper.csproj", "{102AB064-DE43-4EC9-9662-2A9225DFD2E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafeDotNet.Infra.Data.Common", "src\CafeDotNet.Infra.Data.Common\CafeDotNet.Infra.Data.Common.csproj", "{FAAA8A24-2C89-45BC-8102-4EA458B2D034}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{102AB064-DE43-4EC9-9662-2A9225DFD2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102AB064-DE43-4EC9-9662-2A9225DFD2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{102AB064-DE43-4EC9-9662-2A9225DFD2E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAAA8A24-2C89-45BC-8102-4EA458B2D034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAAA8A24-2C89-45BC-8102-4EA458B2D034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAAA8A24-2C89-45BC-8102-4EA458B2D034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAAA8A24-2C89-45BC-8102-4EA458B2D034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{72BEE060-855A-43F5-B9B6-53D0864B9EA7} = {FBE964F9-5B8B-4B5B-96AC-018728AF11C1}
 		{369C3B7B-5241-47A7-A1D7-5AB49B0F5B92} = {FBE964F9-5B8B-4B5B-96AC-018728AF11C1}
 		{102AB064-DE43-4EC9-9662-2A9225DFD2E7} = {FBE964F9-5B8B-4B5B-96AC-018728AF11C1}
+		{FAAA8A24-2C89-45BC-8102-4EA458B2D034} = {FBE964F9-5B8B-4B5B-96AC-018728AF11C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22759E41-F952-4875-A6BC-BDC43D0C842E}

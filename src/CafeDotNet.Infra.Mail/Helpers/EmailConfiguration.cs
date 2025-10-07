@@ -8,7 +8,7 @@ namespace CafeDotNet.Infra.Mail.Helpers
     {
         public static IServiceCollection AddCustomEmailSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.Configure<EmailSettings>(configuration.GetSection(nameof(EmailSettings)));
             
             return services;
         }

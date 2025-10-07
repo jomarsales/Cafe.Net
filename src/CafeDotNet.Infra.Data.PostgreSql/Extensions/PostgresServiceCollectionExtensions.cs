@@ -1,0 +1,16 @@
+﻿using CafeDotNet.Infra.Data.Common.Context;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+
+namespace CafeDotNet.Infra.Data.PostgreSql.Extensions
+{
+    public static class PostgresServiceCollectionExtensions
+    {
+        public static IServiceCollection AddPostgresDatabase(this IServiceCollection services, string connectionString)
+        {
+            services.AddDbContext<CafeDbContext>(options => options.UseNpgsql(connectionString));
+            
+            return services;
+        }
+    }
+}

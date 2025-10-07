@@ -6,7 +6,7 @@ namespace CafeDotNet.Infra.Bootstraper.Helpers
 {
     public static class EmailRegistration
     {
-        public static IServiceCollection AddEmailServices(this IServiceCollection services)
+        public static IServiceCollection RegisterEmailServices(this IServiceCollection services)
         {
             services.AddTransient<IEmailService, EmailService>();
             
