@@ -8,7 +8,7 @@ namespace CafeDotNet.Infra.Data.PostgreSql.Extensions
     {
         public static IServiceCollection AddPostgresDatabase(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<CafeDbContext>(options => options.UseNpgsql(connectionString));
+            services.AddDbContext<CafeDbContext>(options => options.UseNpgsql(connectionString, sql => sql.MigrationsAssembly("CafeDotNet.Infra.Data.PostgreSql")));
             
             return services;
         }

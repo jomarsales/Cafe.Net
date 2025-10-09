@@ -9,10 +9,10 @@ public abstract class EntityBase
 
     protected EntityBase()
     {
-        CreatedAt = DateTime.Now;
+        CreatedAt = DateTime.UtcNow;
     }
 
     protected void Deactivate() => IsActive = false;
     protected void Activate() => IsActive = true;
-    protected void SetUpdated() => UpdatedAt = DateTime.Now;
+    protected void SetUpdated() => UpdatedAt = DateTime.UtcNow;
 }

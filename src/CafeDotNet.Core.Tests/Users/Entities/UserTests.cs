@@ -22,6 +22,7 @@ public class UserTests
         user.IsActive.Should().BeTrue("new users should start active");
         user.CreatedAt.Should().NotBe(default);
         user.UpdatedAt.Should().BeNull("user was just created, not updated yet");
+        user.Role.Should().Be(RoleType.None);
     }
 
     [Fact(DisplayName = "Make sure that Create user should throw when username is empty")]
@@ -81,5 +82,47 @@ public class UserTests
 
         // Assert
         user.Should().NotBeNull();
+    }
+
+    [Fact(DisplayName = "Make sure that SetAsAdmin should update RoleType")]
+    public void Make_sure_that_SetAsAdmin_should_update_RoleYpe()
+    {
+        // Arrange
+        var password = Password.Create("StrongPass1");
+        var user = new User("Jomar", password);
+
+        // Act
+        user.SetAsAdmin();
+
+        // Assert
+        user.Role.Should().Be(RoleType.Admin);
+    }
+
+    [Fact(DisplayName = "Make sure that SetAsVisitor should update RoleType")]
+    public void Make_sure_that_SetAsVisitor_should_update_RoletYpe()
+    {
+        // Arrange
+        var password = Password.Create("StrongPass1");
+        var user = new User("Jomar", password);
+
+        // Act
+        user.SetAsVisitor();
+
+        // Assert
+        user.Role.Should().Be(RoleType.Visitor);
+    }
+
+    [Fact(DisplayName = "Make sure that RemoveRole should update RoleType")]
+    public void Make_sure_that_RemoveRole_should_update_RoletYpe()
+    {
+        // Arrange
+        var password = Password.Create("StrongPass1");
+        var user = new User("Jomar", password);
+
+        // Act
+        user.RemoveRole();
+
+        // Assert
+        user.Role.Should().Be(RoleType.None);
     }
 }

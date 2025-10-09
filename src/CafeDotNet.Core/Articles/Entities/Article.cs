@@ -6,6 +6,12 @@ namespace CafeDotNet.Core.Articles.Entities
 {
     public class Article : EntityBase
     {
+        public const int TitleMaxLength = 300;
+        public const int SubtitleMaxLength = 500;
+        public const int SummaryMaxLength = 200;
+        public const int KeywordsMaxLength = 300;
+        public const int AuthorMaxLength = 100;
+
         public string Title { get; private set; }
         public string Slug { get; private set; }
         public string? Subtitle { get; private set; }
@@ -49,7 +55,7 @@ namespace CafeDotNet.Core.Articles.Entities
         public void Publish()
         {
             Status = ArticleStatus.Published;
-            PublishedAt = DateTime.Now;
+            PublishedAt = DateTime.UtcNow;
             
             SetUpdated();
         }
@@ -68,7 +74,7 @@ namespace CafeDotNet.Core.Articles.Entities
             SetUpdated();
         }
 
-        public void UpdateContent(string htmlContent, string summary = null, string subtitle = null, string keywords = null)
+        public void UpdateContent(string htmlContent, string? summary = null, string? subtitle = null, string? keywords = null)
         {
             if (string.IsNullOrWhiteSpace(htmlContent))
                 throw new ArgumentException("Content cannot be empty.", nameof(htmlContent));
@@ -82,7 +88,6 @@ namespace CafeDotNet.Core.Articles.Entities
             SetUpdated();
         }
 
-        // Atualiza título
         public void UpdateTitle(string title)
         {
             if (string.IsNullOrWhiteSpace(title))

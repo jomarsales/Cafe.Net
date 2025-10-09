@@ -1,6 +1,8 @@
+using CafeDotNet.Infra.Bootstraper.Helpers;
+using CafeDotNet.Infra.Data.Common.Context;
+using CafeDotNet.Infra.Data.Common.SeedHelpers;
 using CafeDotNet.Infra.Logging.Helpers;
 using CafeDotNet.Infra.Mail.Helpers;
-using CafeDotNet.Infra.Bootstraper.Helpers; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,12 @@ builder.Services.RegisterEmailServices();
 builder.Services.RegisterDatabaseServices();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CafeDbContext>();    
+    await UserSeed.SeedAsync(dbContext); 
+}
 
 if (!app.Environment.IsDevelopment())
 {

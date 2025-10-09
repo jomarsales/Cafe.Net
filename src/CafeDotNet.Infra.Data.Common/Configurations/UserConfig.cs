@@ -17,14 +17,19 @@ public class UserConfig : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(x => x.Password)
-            .IsRequired()
-            .HasMaxLength(200);
+        builder.OwnsOne(u => u.Password, pw =>
+        {
+            pw.Property(p => p.Salt).HasMaxLength(50).IsRequired();
+            pw.Property(p => p.Hash).HasMaxLength(256).IsRequired();
+            pw.ToTable("Users");
+        });
 
-        //builder.Property(x => x.Papel)
-        //    .IsRequired()
-        //    .HasMaxLength(20)
-        //    .HasDefaultValue("padrao"); 
+        builder.Property(x => x.Role).HasConversion<int>().IsRequired();
+
+        //Base
+        builder.Property(a => a.CreatedAt).IsRequired();
+        builder.Property(a => a.UpdatedAt);
+        builder.Property(a => a.IsActive);
 
         builder.HasIndex(x => x.Username).IsUnique(); 
     }

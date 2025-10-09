@@ -8,7 +8,7 @@ public static class SqlServerServiceCollectionExtensions
 {
     public static IServiceCollection AddSqlServerDatabase(this IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<CafeDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<CafeDbContext>(options => options.UseSqlServer(connectionString, sql => sql.MigrationsAssembly("CafeDotNet.Infra.Data.SqlServer")));
 
         return services;
     }
