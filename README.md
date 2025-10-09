@@ -1,4 +1,4 @@
-# CafeDotNet
+# CafeDotNet (em desenvolvimento)
 ==============
 
 **Site oficial do portal Café.Net, utilizando Clean Architecture e Domain‑Driven Design (DDD) Test Driven Design (TDD), Multi Database Privider, Asp Net Code MVC.**
@@ -66,5 +66,3 @@ CafeDotNet/
 - Preparado para testes automatizados.
 
 ---
-
-##  Licença
