@@ -15,7 +15,7 @@ namespace CafeDotNet.Infra.Data.SqlServer.Migrations
                 name: "Articles",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "decimal(20,0)", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -40,7 +40,7 @@ namespace CafeDotNet.Infra.Data.SqlServer.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "decimal(20,0)", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password_Hash = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),

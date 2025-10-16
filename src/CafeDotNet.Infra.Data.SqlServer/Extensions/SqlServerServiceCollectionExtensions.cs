@@ -12,4 +12,9 @@ public static class SqlServerServiceCollectionExtensions
 
         return services;
     }
+
+    public static DbContextOptionsBuilder<CafeDbContext> UseSqlServerDatabase(this DbContextOptionsBuilder<CafeDbContext> optionsBuilder, string connectionString)
+    {
+        return optionsBuilder.UseSqlServer(connectionString, b => b.MigrationsAssembly("CafeDotNet.Infra.Data.SqlServer"));
+    }
 }

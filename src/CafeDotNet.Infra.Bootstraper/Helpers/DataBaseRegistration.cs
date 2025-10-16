@@ -33,7 +33,7 @@ namespace CafeDotNet.Infra.Bootstraper.Helpers
                     services.AddSqlServerDatabase(dbSettings.ConnectionStrings.SqlServer);
                     break;
 
-                case "Postgres":
+                case "PostgreSql":
                     services.AddPostgresDatabase(dbSettings.ConnectionStrings.Postgres);
                     break;
 

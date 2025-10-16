@@ -12,5 +12,10 @@ namespace CafeDotNet.Infra.Data.PostgreSql.Extensions
             
             return services;
         }
+
+        public static DbContextOptionsBuilder<CafeDbContext> UsePostgresDatabase(this DbContextOptionsBuilder<CafeDbContext> optionsBuilder, string connectionString)
+        {
+            return optionsBuilder.UseNpgsql(connectionString, b => b.MigrationsAssembly("CafeDotNet.Infra.Data.PostgreSql"));
+        }
     }
 }

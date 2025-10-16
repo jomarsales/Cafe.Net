@@ -2,7 +2,7 @@
 
 public abstract class EntityBase
 {
-    public ulong Id { get; private set; }
+    public long Id { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public bool IsActive { get; private set; }

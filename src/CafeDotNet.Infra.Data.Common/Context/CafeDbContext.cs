@@ -1,6 +1,5 @@
 ﻿using CafeDotNet.Core.Articles.Entities;
 using CafeDotNet.Core.Users.Entities;
-using CafeDotNet.Core.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
