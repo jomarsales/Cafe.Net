@@ -32,7 +32,7 @@ namespace CafeDotNet.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Post()
+        public IActionResult Post(int id)
         {
             var model = new PageViewModel
             {

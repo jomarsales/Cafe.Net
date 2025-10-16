@@ -12592,12 +12592,23 @@ header.masthead {
 
 .about-sidebar {
     position: sticky;
-    top: 100px; /* fica visível ao rolar */
-    transition: transform 0.3s ease;
+    top: 100px;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
 }
 
     .about-sidebar:hover {
-        transform: translateY(-4px);
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        background: #d4e8f8;
+        filter: brightness(0.98);
+        transform: translateY(1px) scale(0.995);
     }
+
+.ads-sidebar {
+    top: 100px;
+}
 
 /* END App Styles */
