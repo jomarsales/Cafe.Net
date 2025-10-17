@@ -1,5 +1,7 @@
 ﻿using CafeDotNet.Core.Articles.ValueObjects;
 using CafeDotNet.Core.Base.Entities;
+using CafeDotNet.Core.Validation;
+using System.Net.Http;
 using System.Text;
 
 namespace CafeDotNet.Core.Articles.Entities
@@ -27,11 +29,13 @@ namespace CafeDotNet.Core.Articles.Entities
 
         public Article(string title, string? subtitle, string htmlContent, string? summary, string? keywords, string? author = null)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                throw new ArgumentException("Título não informado.", nameof(title));
-           
-            if (string.IsNullOrWhiteSpace(htmlContent))
-                throw new ArgumentException("Conteúdo do artigo não informado.", nameof(htmlContent));
+            AssertionConcern.AssertArgumentNotEmpty(nameof(Title), title, "Título não pode ser vazio.");
+            AssertionConcern.AssertArgumentLength(nameof(Title), title, TitleMaxLength, $"Título deve conter até {TitleMaxLength} caracteres.");
+
+            AssertionConcern.AssertArgumentNotEmpty(nameof(HtmlContent), htmlContent, "Conteúdo não pode ser vazio.");
+
+            if(AssertionConcern.HasErrors)
+                return;
 
             Title = title;
             Subtitle = subtitle;
@@ -76,8 +80,10 @@ namespace CafeDotNet.Core.Articles.Entities
 
         public void UpdateContent(string htmlContent, string? summary = null, string? subtitle = null, string? keywords = null)
         {
-            if (string.IsNullOrWhiteSpace(htmlContent))
-                throw new ArgumentException("Content cannot be empty.", nameof(htmlContent));
+            AssertionConcern.AssertArgumentNotEmpty(nameof(HtmlContent), htmlContent, "Conteúdo não pode ser vazio.");
+
+            if (AssertionConcern.HasErrors)
+                return;
 
             HtmlContent = htmlContent;
             
@@ -90,8 +96,11 @@ namespace CafeDotNet.Core.Articles.Entities
 
         public void UpdateTitle(string title)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                throw new ArgumentException("Title cannot be empty.", nameof(title));
+            AssertionConcern.AssertArgumentNotEmpty(nameof(Title), title, "Título não pode ser vazio.");
+            AssertionConcern.AssertArgumentLength(nameof(Title), title, TitleMaxLength, "Título não pode ser vazio.");
+
+            if (AssertionConcern.HasErrors)
+                return;
 
             Title = title;
 

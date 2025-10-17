@@ -1,10 +1,14 @@
-﻿using System.Security.Cryptography;
+﻿using CafeDotNet.Core.Validation;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CafeDotNet.Core.Users.ValueObjects;
 
 public sealed class Password : IEquatable<Password>
 {
+    public const int SaltMaxLength = 50;
+    public const int HashMaxLength = 256;
+
     public string Hash { get; }
     public string Salt { get; }
 
@@ -19,11 +23,11 @@ public sealed class Password : IEquatable<Password>
     /// </summary>
     public static Password Create(string plainPassword)
     {
-        if (string.IsNullOrWhiteSpace(plainPassword))
-            throw new ArgumentException("Senha não pode ser vazia.", nameof(plainPassword));
+        AssertionConcern.AssertArgumentNotEmpty(nameof(Password), plainPassword, "Senha não pode ser vazia.");
+        AssertionConcern.AssertArgumentTrue(nameof(Password), IsStrongEnough(plainPassword), "Senha não atende aos requisitos mínimos de segurança.");
 
-        if (!IsStrongEnough(plainPassword))
-            throw new ArgumentException("Senha não atende aos requisitos mínimos de segurança.", nameof(plainPassword));
+        if(AssertionConcern.HasErrors)
+            return null!;
 
         var salt = GenerateSalt();
         var hash = HashPassword(plainPassword, salt);
@@ -36,8 +40,14 @@ public sealed class Password : IEquatable<Password>
     /// </summary>
     public static Password FromHash(string hash, string salt)
     {
-        if (string.IsNullOrWhiteSpace(hash) || string.IsNullOrWhiteSpace(salt))
-            throw new ArgumentException("Hash e Salt devem ser informados.");
+        AssertionConcern.AssertArgumentNotEmpty(nameof(Hash), hash, "Hash da senha não pode ser vazia.");
+        AssertionConcern.AssertArgumentLength(nameof(Hash), hash, HashMaxLength, $"Hash da senha precisa conter {HashMaxLength} caracteres");
+
+        AssertionConcern.AssertArgumentNotEmpty(nameof(Salt), salt, "Salt da senha não pode ser vazia.");
+        AssertionConcern.AssertArgumentLength(nameof(Salt), salt, HashMaxLength, $"Salt da senha precisa conter {HashMaxLength} caracteres");
+
+        if (AssertionConcern.HasErrors)
+            return null!;
 
         return new Password(hash, salt);
     }

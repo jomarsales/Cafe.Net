@@ -1,4 +1,5 @@
 ﻿using CafeDotNet.Core.Users.ValueObjects;
+using CafeDotNet.Core.Validation;
 using FluentAssertions;
 
 namespace CafeDotNet.Core.Tests.Users.ValueObjects;
@@ -6,6 +7,11 @@ namespace CafeDotNet.Core.Tests.Users.ValueObjects;
 [Trait("ValueObject", "Password")]
 public class PasswordTests
 {
+    public PasswordTests()
+    {
+        AssertionConcern.Clear();
+    }
+
     [Fact(DisplayName = "Make sure that Create should generate hash and salt for valid password")]
     public void Make_sure_that_Create_should_generate_hash_and_salt_for_valid_password()
     {
@@ -28,12 +34,12 @@ public class PasswordTests
         var plainPassword = "   ";
 
         // Act
-        Action act = () => Password.Create(plainPassword);
+        var pwd = Password.Create(plainPassword);
 
         // Assert
-        act.Should()
-            .Throw<ArgumentException>()
-            .WithMessage("*Senha não pode ser vazia.*");
+        pwd.Should().BeNull();
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["Password"].First().Should().Be("Senha não pode ser vazia.");
     }
 
     [Fact(DisplayName = "Make sure that Create should throw when password is weak")]
@@ -43,12 +49,12 @@ public class PasswordTests
         var plainPassword = "weakpass";
 
         // Act
-        Action act = () => Password.Create(plainPassword);
+        var pwd = Password.Create(plainPassword);
 
         // Assert
-        act.Should()
-            .Throw<ArgumentException>()
-            .WithMessage("*requisitos mínimos de segurança*");
+        pwd.Should().BeNull();
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["Password"].First().Should().Be("Senha não atende aos requisitos mínimos de segurança.");
     }
 
     [Fact(DisplayName = "Make sure that FromHash should create password from existing hash and salt")]
@@ -74,12 +80,13 @@ public class PasswordTests
         var salt = " ";
 
         // Act
-        Action act = () => Password.FromHash(hash, salt);
+        var pwd = Password.FromHash(hash, salt);
 
         // Assert
-        act.Should()
-            .Throw<ArgumentException>()
-            .WithMessage("*Hash e Salt devem ser informados*");
+        pwd.Should().BeNull();
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["Hash"][0].Should().Be("Hash da senha não pode ser vazia.");
+        AssertionConcern.Errors["Salt"][0].Should().Be("Salt da senha não pode ser vazia.");
     }
 
     [Fact(DisplayName = "Make sure that Verify should return true for correct password")]

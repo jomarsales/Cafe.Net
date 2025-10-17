@@ -1,4 +1,5 @@
 ﻿using CafeDotNet.Core.Users.Entities;
+using CafeDotNet.Core.Users.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,12 +16,12 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Username)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasMaxLength(User.UsernameMaxLength);
 
         builder.OwnsOne(u => u.Password, pw =>
         {
-            pw.Property(p => p.Salt).HasMaxLength(50).IsRequired();
-            pw.Property(p => p.Hash).HasMaxLength(256).IsRequired();
+            pw.Property(p => p.Salt).HasMaxLength(Password.SaltMaxLength).IsRequired();
+            pw.Property(p => p.Hash).HasMaxLength(Password.HashMaxLength).IsRequired();
             pw.ToTable("Users");
         });
 

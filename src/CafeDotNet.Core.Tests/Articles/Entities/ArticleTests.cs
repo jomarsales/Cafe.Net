@@ -1,5 +1,6 @@
 ﻿using CafeDotNet.Core.Articles.Entities;
 using CafeDotNet.Core.Articles.ValueObjects;
+using CafeDotNet.Core.Validation;
 using FluentAssertions;
 
 namespace CafeDotNet.Core.Tests.Articles.Entities;
@@ -38,10 +39,11 @@ public class ArticleTests
         var content = "<p>Conteúdo</p>";
 
         // Act
-        Action act = () => new Article("", "Sub", content, "Resumo", "chave");
+        var article = new Article("", "Sub", content, "Resumo", "chave");
 
         // Assert
-        act.Should().Throw<ArgumentException>().WithMessage("*Título não informado*");
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["Title"].Should().Contain("Título não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that creating article without content throws exception")]
@@ -51,10 +53,11 @@ public class ArticleTests
         var title = "Artigo sem conteúdo";
 
         // Act
-        Action act = () => new Article(title, "Sub", "", "Resumo", "chave");
+        var article = new Article(title, "Sub", "", "Resumo", "chave");
 
         // Assert
-        act.Should().Throw<ArgumentException>().WithMessage("*Conteúdo do artigo não informado*");
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["HtmlContent"].Should().Contain("Conteúdo não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that incrementing view count increases counter")]
@@ -138,10 +141,11 @@ public class ArticleTests
         var article = new Article("Título", null, "<p>html</p>", null, null);
 
         // Act
-        Action act = () => article.UpdateContent("");
+        article.UpdateContent("");
 
         // Assert
-        act.Should().Throw<ArgumentException>().WithMessage("*Content cannot be empty*");
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["HtmlContent"].Should().Contain("Conteúdo não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that updating title changes slug and sets date")]
@@ -166,9 +170,10 @@ public class ArticleTests
         var article = new Article("Título", null, "<p>html</p>", null, null);
 
         // Act
-        Action act = () => article.UpdateTitle("");
+        article.UpdateTitle("");
 
         // Assert
-        act.Should().Throw<ArgumentException>().WithMessage("*Title cannot be empty*");
+        AssertionConcern.HasErrors.Should().BeTrue();
+        AssertionConcern.Errors["Title"].Should().Contain("Título não pode ser vazio.");
     }
 }

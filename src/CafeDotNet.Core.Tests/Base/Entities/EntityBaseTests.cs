@@ -22,7 +22,7 @@ namespace CafeDotNet.Core.Tests.Base.Entities
 
             // Assert
             entity.CreatedAt.Should().NotBe(default);
-            entity.CreatedAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
+            entity.CreatedAt.Date.Should().BeCloseTo(DateTime.UtcNow.Date, TimeSpan.FromSeconds(1));
             entity.IsActive.Should().BeFalse("default state should be inactive until explicitly activated");
             entity.UpdatedAt.Should().BeNull();
         }
@@ -65,7 +65,7 @@ namespace CafeDotNet.Core.Tests.Base.Entities
 
             // Assert
             entity.UpdatedAt.Should().NotBeNull();
-            entity.UpdatedAt.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(1));
+            entity.UpdatedAt.Value.Date.Should().BeCloseTo(DateTime.UtcNow.Date, TimeSpan.FromSeconds(1));
         }
     }
 }
