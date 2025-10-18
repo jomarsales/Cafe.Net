@@ -25,10 +25,15 @@ namespace CafeDotNet.Core.Articles.Entities
         public int ViewCount { get; private set; }
         public ArticleStatus Status { get; private set; }
 
-        protected Article() { }
+        protected Article()
+        {
+            AssertionConcern.Clear();
+        }
 
         public Article(string title, string? subtitle, string htmlContent, string? summary, string? keywords, string? author = null)
         {
+            AssertionConcern.Clear();
+            
             AssertionConcern.AssertArgumentNotEmpty(nameof(Title), title, "Título não pode ser vazio.");
             AssertionConcern.AssertArgumentLength(nameof(Title), title, TitleMaxLength, $"Título deve conter até {TitleMaxLength} caracteres.");
 

@@ -13,10 +13,15 @@ public class User : EntityBase
 
     public RoleType Role { get; private set; }
 
-    protected User() { }
+    protected User()
+    {
+        AssertionConcern.Clear();
+    }
 
     public User(string username, Password password)
     {
+        AssertionConcern.Clear();
+        
         AssertionConcern.AssertArgumentNotEmpty(nameof(Username), username, "Usuário não pode ser vazio.");
         AssertionConcern.AssertArgumentLength(nameof(Username), username, UsernameMaxLength, $"Usuário precisa conter até {User.UsernameMaxLength} caracteres.");
 
@@ -34,10 +39,13 @@ public class User : EntityBase
 
     public void ChangePassword(Password newPassword)
     {
+        AssertionConcern.Clear();
         AssertionConcern.AssertArgumentNotNull(nameof(Password), newPassword, "Semha não pode ser null.");
 
         if (AssertionConcern.HasErrors)
             return;
+
+        Password = newPassword;
 
         SetUpdated();
     }

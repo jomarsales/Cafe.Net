@@ -1,0 +1,11 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<partial name="_ScriptHead" />
+<body style="background-color: #ccc;">
+    <partial name="~/Views/Shared/Admin/_NavigationAdmin.cshtml" />
+     @RenderBody()
+    <partial name="_Footer" />
+    <partial name="_Alert" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

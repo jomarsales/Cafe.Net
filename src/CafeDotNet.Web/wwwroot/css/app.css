@@ -12612,3 +12612,31 @@ header.masthead {
 }
 
 /* END App Styles */
+
+/* Login */
+
+.login-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 400px;
+    padding: 2.5rem;
+}
+
+    .login-card h3 {
+        font-family: 'Lora', serif;
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #212529;
+    }
+
+    .login-card .login-logo {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+/* END Login */

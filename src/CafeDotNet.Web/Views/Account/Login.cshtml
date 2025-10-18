@@ -1,0 +1,59 @@
+﻿@using CafeDotNet.Web.Models.Account
+@model LoginViewModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Café.Net - Login";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<partial name="_ScriptHead" />
+
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f8f9fa; 
+        color: #343a40;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+
+    <div class="login-card">
+        <form asp-action="Login" method="post">
+            <img class="login-logo" src="~/img/svg/logo-yellow-black.svg" />
+
+            <h3>Entrar no Sistema</h3>
+
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label mb-0">Usuário</label>
+                <input asp-for="Username" class="form-control" placeholder="Nome de usuário" />
+                <span asp-validation-for="Username" class="text-danger small" id="error-Username"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label mb-0">Usuário</label>
+                <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                <span asp-validation-for="Password" class="text-danger small" id="error-Password"></span>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="LembrarMe" name="LembrarMe" class="form-check-input">
+                <label for="LembrarMe" class="form-check-label">Lembrar-me</label>
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
+            </div>
+        </form>
+    </div>
+
+    <partial name="_Alert" />
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

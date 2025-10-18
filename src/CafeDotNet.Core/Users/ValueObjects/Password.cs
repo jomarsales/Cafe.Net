@@ -23,6 +23,8 @@ public sealed class Password : IEquatable<Password>
     /// </summary>
     public static Password Create(string plainPassword)
     {
+        AssertionConcern.Clear();
+       
         AssertionConcern.AssertArgumentNotEmpty(nameof(Password), plainPassword, "Senha não pode ser vazia.");
         AssertionConcern.AssertArgumentTrue(nameof(Password), IsStrongEnough(plainPassword), "Senha não atende aos requisitos mínimos de segurança.");
 
@@ -40,6 +42,8 @@ public sealed class Password : IEquatable<Password>
     /// </summary>
     public static Password FromHash(string hash, string salt)
     {
+        AssertionConcern.Clear();
+
         AssertionConcern.AssertArgumentNotEmpty(nameof(Hash), hash, "Hash da senha não pode ser vazia.");
         AssertionConcern.AssertArgumentLength(nameof(Hash), hash, HashMaxLength, $"Hash da senha precisa conter {HashMaxLength} caracteres");
 
