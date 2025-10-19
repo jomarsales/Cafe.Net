@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Café.Net - Logout";
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<partial name="_ScriptHead" />
+<body class="body-admin">
+
+    <div class="login-card text-center">
+        <img class="login-logo" src="~/img/svg/logo-yellow-black.svg" />
+
+        <h3>Você saiu do sistema</h3>
+        <p class="text-muted mb-4">Esperamos vê-lo novamente em breve ☕</p>
+
+        <div class="d-grid mb-3">
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg">Voltar ao Login</a>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

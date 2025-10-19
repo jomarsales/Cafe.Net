@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Café.Net - Acesso Negado";
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<partial name="_ScriptHead" />
+<body class="body-admin">
+
+    <div class="login-card text-center">
+        <img class="login-logo" src="~/img/svg/logo-yellow-black.svg" />
+
+        <h3 class="text-danger">Acesso Negado</h3>
+        <p class="text-muted mb-4">
+            Você não tem permissão para acessar esta área do sistema.<br />
+            Caso ache que isso é um erro, entre em contato com o administrador.
+        </p>
+
+        <div class="d-grid mb-3">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary btn-lg mb-2">Voltar à Página Inicial</a>
+            <a asp-controller="Account" asp-action="Logout" class="btn btn-outline-danger btn-lg">Sair</a>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

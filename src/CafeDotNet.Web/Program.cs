@@ -3,6 +3,7 @@ using CafeDotNet.Infra.Data.Common.Context;
 using CafeDotNet.Infra.Data.Common.SeedHelpers;
 using CafeDotNet.Infra.Logging.Helpers;
 using CafeDotNet.Infra.Mail.Helpers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,15 @@ builder.Services.AddDatabaseProvider(builder.Configuration);
 builder.Services.RegisterEmailServices();
 builder.Services.RegisterDatabaseServices();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";  
+        options.LogoutPath = "/Account/Logout";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -33,6 +43,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseCustomSerilog();
 

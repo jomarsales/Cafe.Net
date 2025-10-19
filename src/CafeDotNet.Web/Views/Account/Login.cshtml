@@ -1,28 +1,13 @@
 ﻿@using CafeDotNet.Web.Models.Account
 @model LoginViewModel
-
 @{
     Layout = null;
     ViewData["Title"] = "Café.Net - Login";
 }
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <partial name="_ScriptHead" />
-
-<style>
-    body {
-        font-family: 'Open Sans', sans-serif;
-        background-color: #f8f9fa; 
-        color: #343a40;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-</style>
-
-<body>
+<body class="body-admin">
 
     <div class="login-card">
         <form asp-action="Login" method="post">
@@ -52,7 +37,8 @@
             </div>
         </form>
     </div>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <partial name="_Alert" />
     <partial name="_ValidationScriptsPartial" />
 </body>

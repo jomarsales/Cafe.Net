@@ -74,6 +74,7 @@
     --bs-link-hover-color: #0085A1;
     --bs-code-color: #d63384;
     --bs-highlight-bg: #fff3cd;
+    --bs-body-bg-admin: #d7dbdc;
 }
 
 *,
@@ -12612,6 +12613,20 @@ header.masthead {
 }
 
 /* END App Styles */
+
+/* Admin */
+
+.body-admin {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bs-body-bg-admin);
+    color: #343a40;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* END Admin */
 
 /* Login */
 
