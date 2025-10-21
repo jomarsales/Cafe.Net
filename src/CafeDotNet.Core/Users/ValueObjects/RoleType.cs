@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel;
 
-namespace CafeDotNet.Core.Users.ValueObjects
+namespace CafeDotNet.Core.Users.ValueObjects;
+
+public enum RoleType
 {
-    public enum RoleType
-    {
-        [Description("Nenhum")]
-        None,
+    [Description("Nenhum")]
+    None,
 
-        [Description("Administrador")]
-        Admin,
+    [Description("Administrador")]
+    Admin,
 
-        [Description("Visitante")]
-        Visitor
-    }
+    [Description("Visitante")]
+    Visitor
 }

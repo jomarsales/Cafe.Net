@@ -1,4 +1,9 @@
-﻿using CafeDotNet.Core.Users.ValueObjects;
+﻿using CafeDotNet.Core.Users.DTOs;
+using CafeDotNet.Core.Users.ValueObjects;
+using CafeDotNet.Core.Validation;
+using CafeDotNet.Manager.Users.Interfaces;
+using CafeDotNet.Web.Enums;
+using CafeDotNet.Web.Helpers;
 using CafeDotNet.Web.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -10,6 +15,13 @@ namespace CafeDotNet.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IAuthenticationManager _authenticationManager;
+
+        public AccountController(IAuthenticationManager authenticationManager)
+        {
+            _authenticationManager = authenticationManager;
+        }
+
         [AllowAnonymous]
         public IActionResult Login()
         {
@@ -23,32 +35,40 @@ namespace CafeDotNet.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            if (model.Username == "admin" && model.Password == "123456")
+            var request = new AuthenticationRequest
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, model.Username),
-                    new Claim(ClaimTypes.Role, RoleType.Admin.ToString())
-                };
+                Username = model.Username,
+                Password = model.Password
+            };
 
-                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = model.RememberMe, 
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddHours(2)
-                };
+            var result = await _authenticationManager.AuthenticateUserAsyn(request);
 
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity),
-                    authProperties);
+            if (AssertionConcern.HasErrors)
+            {
+                this.SetAlert(string.Join("</ br>", AssertionConcern.Errors), AlertType.Danger);
 
-                return Redirect(returnUrl ?? Url.Action("Index", "Admin")!);
+                return View(model);
             }
 
-            ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
-            
-            return View(model);
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.Name, result.Username!),
+                new(ClaimTypes.Role, result.Role.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = model.RememberMe,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddHours(2)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
+            return Redirect(returnUrl ?? Url.Action("Index", "Admin")!);
         }
 
         [Authorize]

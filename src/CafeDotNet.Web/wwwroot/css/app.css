@@ -12620,10 +12620,13 @@ header.masthead {
     font-family: 'Open Sans', sans-serif;
     background-color: var(--bs-body-bg-admin);
     color: #343a40;
-    height: 100vh;
-    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    display: flex; /* agora align-items e justify-content funcionam */
     align-items: center;
     justify-content: center;
+    padding-top: 140px; /* substitui o margin-top */
+    box-sizing: border-box;
 }
 
 /* END Admin */

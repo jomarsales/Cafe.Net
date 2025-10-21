@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+﻿using CafeDotNet.Core.Users.Interfaces;
 using CafeDotNet.Infra.Data.Common.DTOs;
+using CafeDotNet.Infra.Data.Common.Repositories;
 using CafeDotNet.Infra.Data.MySql.Extensions;
 using CafeDotNet.Infra.Data.PostgreSql.Extensions;
 using CafeDotNet.Infra.Data.SqlServer.Extensions;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace CafeDotNet.Infra.Bootstraper.Helpers
 {
@@ -50,7 +52,7 @@ namespace CafeDotNet.Infra.Bootstraper.Helpers
 
         public static IServiceCollection RegisterDatabaseServices(this IServiceCollection services)
         {
-            //Repositories, etc
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

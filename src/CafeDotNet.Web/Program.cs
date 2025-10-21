@@ -15,6 +15,7 @@ builder.Services.AddCustomEmailSettings(builder.Configuration);
 builder.Services.AddDatabaseProvider(builder.Configuration);
 
 builder.Services.RegisterEmailServices();
+builder.Services.RegisterCoreServices();
 builder.Services.RegisterDatabaseServices();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
