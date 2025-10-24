@@ -1,6 +1,4 @@
-﻿using CafeDotNet.Core.Validation.Interfaces;
-using CafeDotNet.Core.Validation.Services;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace CafeDotNet.Core.Validation;
 
@@ -10,159 +8,126 @@ namespace CafeDotNet.Core.Validation;
 /// </summary>
 public static class AssertionConcern
 {
-    #region Validation buffer
-
-    private static readonly IValidationBuffer _buffer = new ValidationBuffer();
-
-    public static bool HasErrors => _buffer.HasErrors;
-
-    public static IReadOnlyDictionary<string, List<string>> Errors => _buffer.GetAll();
-
-    public static void Clear() => _buffer.Clear();
-
-    #endregion
-
-    public static void AssertArgumentNotNull(string key, object? value, string message)
+    public static ValidationError? AssertArgumentNotNull(string key, object? value, string message)
     {
-        if (value is null)
-            Throw(key, message);
+        return (value is null) ? Throw(key, message) : null; ;
     }
 
-    public static void AssertArgumentNotEmpty(string key, string? value, string message)
+    public static ValidationError? AssertArgumentNotEmpty(string key, string? value, string message)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            Throw(key, message);
+        return (string.IsNullOrWhiteSpace(value)) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentNotEmpty<T>(string key, IEnumerable<T>? collection, string message)
+    public static ValidationError? AssertArgumentNotEmpty<T>(string key, IEnumerable<T>? collection, string message)
     {
-        if (collection is null || !collection.Any())
-            Throw(key, message);
+        return (collection is null || !collection.Any()) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentLength(string key, string value, int max, string message)
+    public static ValidationError? AssertArgumentLength(string key, string value, int max, string message)
     {
-        if (value.Length > max)
-            Throw(key, message);
+        return (value.Length > max) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentLength(string key, string value, int min, int max, string message)
+    public static ValidationError? AssertArgumentLength(string key, string value, int min, int max, string message)
     {
         var length = value?.Length ?? 0;
-        if (length < min || length > max)
-            Throw(key, message);
+
+        return (length < min || length > max) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentMinLength(string key, string value, int min, string message)
+    public static ValidationError? AssertArgumentMinLength(string key, string value, int min, string message)
     {
-        if (string.IsNullOrEmpty(value) || value.Length < min)
-            Throw(key, message);
+        return (string.IsNullOrEmpty(value) || value.Length < min) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentPositive(string key, decimal value, string message)
+    public static ValidationError? AssertArgumentPositive(string key, decimal value, string message)
     {
-        if (value <= 0)
-            Throw(key, message);
+        return (value <= 0) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentPositive(string key, int value, string message)
+    public static ValidationError? AssertArgumentPositive(string key, int value, string message)
     {
-        if (value <= 0)
-            Throw(key, message);
+        return (value <= 0) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentRange(string key, decimal value, decimal min, decimal max, string message)
+    public static ValidationError? AssertArgumentRange(string key, decimal value, decimal min, decimal max, string message)
     {
-        if (value < min || value > max)
-            Throw(key, message);
+        return (value < min || value > max) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentRange(string key, int value, int min, int max, string message)
+    public static ValidationError? AssertArgumentRange(string key, int value, int min, int max, string message)
     {
-        if (value < min || value > max)
-            Throw(key, message);
+        return (value < min || value > max) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentDateNotInFuture(string key, DateTime value, string message)
+    public static ValidationError? AssertArgumentDateNotInFuture(string key, DateTime value, string message)
     {
-        if (value > DateTime.Now)
-            Throw(key, message);
+        return (value > DateTime.Now) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentDateNotInPast(string key, DateTime value, string message)
+    public static ValidationError? AssertArgumentDateNotInPast(string key, DateTime value, string message)
     {
-        if (value < DateTime.Now)
-            Throw(key, message);
+        return (value < DateTime.Now) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentDateRange(string key, DateTime value, DateTime min, DateTime max, string message)
+    public static ValidationError? AssertArgumentDateRange(string key, DateTime value, DateTime min, DateTime max, string message)
     {
-        if (value < min || value > max)
-            Throw(key, message);
+        return (value < min || value > max) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentGuidNotEmpty(string key, Guid value, string message)
+    public static ValidationError? AssertArgumentGuidNotEmpty(string key, Guid value, string message)
     {
-        if (value == Guid.Empty)
-            Throw(key, message);
+        return (value == Guid.Empty) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentTrue(string key, bool condition, string message)
+    public static ValidationError? AssertArgumentTrue(string key, bool condition, string message)
     {
-        if (!condition)
-            Throw(key, message);
+        return (!condition) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentFalse(string key, bool condition, string message)
+    public static ValidationError? AssertArgumentFalse(string key, bool condition, string message)
     {
-        if (condition)
-            Throw(key, message);
+        return (condition) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentEquals(string key, object? expected, object? actual, string message)
+    public static ValidationError? AssertArgumentEquals(string key, object? expected, object? actual, string message)
     {
-        if (!object.Equals(expected, actual))
-            Throw(key, message);
+        return (!object.Equals(expected, actual)) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentNotEquals(string key, object? notExpected, object? actual, string message)
+    public static ValidationError? AssertArgumentNotEquals(string key, object? notExpected, object? actual, string message)
     {
-        if (object.Equals(notExpected, actual))
-            Throw(key, message);
+        return (object.Equals(notExpected, actual)) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentMatches(string key, string value, string pattern, string message)
+    public static ValidationError? AssertArgumentMatches(string key, string value, string pattern, string message)
     {
-        if (value is null || !Regex.IsMatch(value, pattern))
-            Throw(key, message);
+        return (value is null || !Regex.IsMatch(value, pattern)) ? Throw(key, message) : null;
     }
 
-    public static void AssertArgumentEmail(string key, string value, string message)
+    public static ValidationError? AssertArgumentEmail(string key, string value, string message)
     {
         if (string.IsNullOrWhiteSpace(value))
-            Throw(key, message);
+            return Throw(key, message);
 
         const string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
-        if (!Regex.IsMatch(value, pattern, RegexOptions.IgnoreCase))
-            Throw(key, message);
+        return (!Regex.IsMatch(value, pattern, RegexOptions.IgnoreCase)) ? Throw(key, message) : null; ;
     }
 
-    public static void AssertArgumentCpf(string key, string value, string message)
+    public static ValidationError? AssertArgumentCpf(string key, string value, string message)
     {
-        if (string.IsNullOrWhiteSpace(value) || !IsCpf(value))
-            Throw(key, message);
+        return (string.IsNullOrWhiteSpace(value) || !IsCpf(value)) ? Throw(key, message) : null; ;
     }
 
-    public static void AssertArgumentCnpj(string key, string value, string message)
+    public static ValidationError? AssertArgumentCnpj(string key, string value, string message)
     {
-        if (string.IsNullOrWhiteSpace(value) || !IsCnpj(value))
-            Throw(key, message);
+        return string.IsNullOrWhiteSpace(value) || !IsCnpj(value) ? Throw(key, message) : null; ;
     }
 
-    private static void Throw(string key, string message)
+    private static ValidationError? Throw(string key, string message)
     {
-        _buffer.Add(key, message);
+        return new ValidationError(key, message);
     }
 
     private static bool IsCpf(string cpf)

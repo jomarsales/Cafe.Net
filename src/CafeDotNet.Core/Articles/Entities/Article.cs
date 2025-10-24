@@ -25,23 +25,10 @@ namespace CafeDotNet.Core.Articles.Entities
         public int ViewCount { get; private set; }
         public ArticleStatus Status { get; private set; }
 
-        protected Article()
-        {
-            AssertionConcern.Clear();
-        }
+        protected Article() { }
 
         public Article(string title, string? subtitle, string htmlContent, string? summary, string? keywords, string? author = null)
         {
-            AssertionConcern.Clear();
-            
-            AssertionConcern.AssertArgumentNotEmpty(nameof(Title), title, "Título não pode ser vazio.");
-            AssertionConcern.AssertArgumentLength(nameof(Title), title, TitleMaxLength, $"Título deve conter até {TitleMaxLength} caracteres.");
-
-            AssertionConcern.AssertArgumentNotEmpty(nameof(HtmlContent), htmlContent, "Conteúdo não pode ser vazio.");
-
-            if(AssertionConcern.HasErrors)
-                return;
-
             Title = title;
             Subtitle = subtitle;
             HtmlContent = htmlContent;
@@ -54,6 +41,7 @@ namespace CafeDotNet.Core.Articles.Entities
             Slug = GenerateSlug(title);
 
             Activate();
+            Validate();
         }
 
         public void IncrementViewCount()
@@ -65,53 +53,44 @@ namespace CafeDotNet.Core.Articles.Entities
         {
             Status = ArticleStatus.Published;
             PublishedAt = DateTime.UtcNow;
-            
+
             SetUpdated();
         }
 
         public void SetEditing()
         {
             Status = ArticleStatus.Editing;
-          
+
             SetUpdated();
         }
 
         public void Archive()
         {
             Status = ArticleStatus.Archived;
-            
+
             SetUpdated();
         }
 
         public void UpdateContent(string htmlContent, string? summary = null, string? subtitle = null, string? keywords = null)
         {
-            AssertionConcern.AssertArgumentNotEmpty(nameof(HtmlContent), htmlContent, "Conteúdo não pode ser vazio.");
-
-            if (AssertionConcern.HasErrors)
-                return;
-
             HtmlContent = htmlContent;
-            
+
             if (summary != null) Summary = summary;
             if (subtitle != null) Subtitle = subtitle;
             if (keywords != null) Keywords = keywords;
 
             SetUpdated();
+            Validate();
         }
 
         public void UpdateTitle(string title)
         {
-            AssertionConcern.AssertArgumentNotEmpty(nameof(Title), title, "Título não pode ser vazio.");
-            AssertionConcern.AssertArgumentLength(nameof(Title), title, TitleMaxLength, "Título não pode ser vazio.");
-
-            if (AssertionConcern.HasErrors)
-                return;
-
             Title = title;
 
             Slug = GenerateSlug(title);
 
             SetUpdated();
+            Validate();
         }
 
         private static string GenerateSlug(string text)
@@ -134,6 +113,13 @@ namespace CafeDotNet.Core.Articles.Entities
             clean = System.Text.RegularExpressions.Regex.Replace(clean, @"[^a-z0-9\-]", string.Empty);
 
             return clean.Trim('-');
+        }
+
+        protected override void Validate()
+        {
+            ValidationResult.Add(AssertionConcern.AssertArgumentNotEmpty(nameof(Title), Title, "Título não pode ser vazio."));
+            ValidationResult.Add(AssertionConcern.AssertArgumentLength(nameof(Title), Title, TitleMaxLength, $"Título deve conter até {TitleMaxLength} caracteres."));
+            ValidationResult.Add(AssertionConcern.AssertArgumentNotEmpty(nameof(HtmlContent), HtmlContent, "Conteúdo não pode ser vazio."));
         }
     }
 }

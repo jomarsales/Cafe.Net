@@ -6,12 +6,13 @@ namespace CafeDotNet.Core.Tests.Base.Entities
     [Trait("Entity", "EntityBase")]
     public class EntityBaseTests
     {
-        // Classe concreta de apoio (somente para testes)
         private class TestEntity : EntityBase
         {
             public void PublicActivate() => Activate();
             public void PublicDeactivate() => Deactivate();
             public void PublicSetUpdated() => SetUpdated();
+
+            protected override void Validate() { }
         }
 
         [Fact(DisplayName = "Make sure that Creating entity should set CreatedAt automatically")]
@@ -45,7 +46,7 @@ namespace CafeDotNet.Core.Tests.Base.Entities
         {
             // Arrange
             var entity = new TestEntity();
-            entity.PublicActivate(); // ativar primeiro
+            entity.PublicActivate(); 
 
             // Act
             entity.PublicDeactivate();

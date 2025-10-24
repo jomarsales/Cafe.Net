@@ -1,5 +1,4 @@
 ﻿using CafeDotNet.Core.Users.DTOs;
-using CafeDotNet.Core.Users.ValueObjects;
 using CafeDotNet.Core.Validation;
 using CafeDotNet.Manager.Users.Interfaces;
 using CafeDotNet.Web.Enums;
@@ -43,12 +42,12 @@ namespace CafeDotNet.Web.Controllers
 
             var result = await _authenticationManager.AuthenticateUserAsyn(request);
 
-            if (AssertionConcern.HasErrors)
-            {
-                this.SetAlert(string.Join("</ br>", AssertionConcern.Errors), AlertType.Danger);
+            //if (AssertionConcern.HasErrors)
+            //{
+            //    this.SetAlert(string.Join("</ br>", AssertionConcern.Errors), AlertType.Danger);
 
-                return View(model);
-            }
+            //    return View(model);
+            //}
 
             var claims = new List<Claim>
             {
