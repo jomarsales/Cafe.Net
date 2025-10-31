@@ -42,8 +42,8 @@ public class ArticleTests
         var article = new Article("", "Sub", content, "Resumo", "chave");
 
         // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["Title"].Should().Contain("Título não pode ser vazio.");
+        article.ValidationResult.Errors.Should().NotBeEmpty();
+        article.ValidationResult.Errors.Should().Contain(x => x.Message == "Título não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that creating article without content throws exception")]
@@ -56,8 +56,8 @@ public class ArticleTests
         var article = new Article(title, "Sub", "", "Resumo", "chave");
 
         // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["HtmlContent"].Should().Contain("Conteúdo não pode ser vazio.");
+        article.ValidationResult.Errors.Should().NotBeEmpty();
+        article.ValidationResult.Errors.Should().Contain(x => x.Message == "Conteúdo não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that incrementing view count increases counter")]
@@ -144,8 +144,8 @@ public class ArticleTests
         article.UpdateContent("");
 
         // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["HtmlContent"].Should().Contain("Conteúdo não pode ser vazio.");
+        article.ValidationResult.Errors.Should().NotBeEmpty();
+        article.ValidationResult.Errors.Should().Contain(x => x.Message == "Conteúdo não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that updating title changes slug and sets date")]
@@ -173,7 +173,7 @@ public class ArticleTests
         article.UpdateTitle("");
 
         // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["Title"].Should().Contain("Título não pode ser vazio.");
+        article.ValidationResult.Errors.Should().NotBeEmpty();
+        article.ValidationResult.Errors.Should().Contain(x => x.Message == "Título não pode ser vazio.");
     }
 }

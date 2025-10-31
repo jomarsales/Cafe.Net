@@ -13,6 +13,8 @@ public class ValidationResult
 
     public void Add(ValidationError? error)
     {
+        if (error == null) return;
+
         var list = new List<ValidationError?>(Errors) { error };
         
         SetErrors(list);

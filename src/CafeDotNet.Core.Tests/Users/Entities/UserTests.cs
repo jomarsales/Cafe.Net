@@ -1,4 +1,5 @@
-﻿using CafeDotNet.Core.Users.Entities;
+﻿using CafeDotNet.Core.Articles.Entities;
+using CafeDotNet.Core.Users.Entities;
 using CafeDotNet.Core.Users.ValueObjects;
 using CafeDotNet.Core.Validation;
 using FluentAssertions;
@@ -8,11 +9,6 @@ namespace CafeDotNet.Core.Tests.Users.Entities;
 [Trait("Entity", "User")]
 public class UserTests
 {
-    public UserTests()
-    {
-        AssertionConcern.Clear();
-    }
-
     [Fact(DisplayName = "Make sure that Create user with valid data should initialize correctly")]
     public void Make_sure_that_Create_user_with_valid_data_should_initialize_correctly()
     {
@@ -41,8 +37,8 @@ public class UserTests
         var user = new User("   ", password);
 
         // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["Username"].Should().Contain("Usuário não pode ser vazio.");
+        user.ValidationResult.Errors.Should().NotBeEmpty();
+        user.ValidationResult.Errors.Should().Contain(x => x.Message == "Usuário não pode ser vazio.");
     }
 
     [Fact(DisplayName = "Make sure that Create user should throw when username is too long")]
@@ -55,8 +51,8 @@ public class UserTests
         var user = new User("oiuyqweroiuyqweyruioqweroiuyqweryuioqweroiuyqweryuioqweroiuyqweroiuyqweroiuyqweyruioqweroiuyqweryuioqweroiuyqweryuioqweroiuyqweroiuyqweroiuyqweyruioqweroiuyqweryuioqweroiuyqweryuioqweroiuyqwer", password);
 
         // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["Username"].Should().Contain($"Usuário precisa conter até {User.UsernameMaxLength} caracteres.");
+        user.ValidationResult.Errors.Should().NotBeEmpty();
+        user.ValidationResult.Errors.Should().Contain(x => x.Message == $"Usuário precisa conter até {User.UsernameMaxLength} caracteres.");
     }
 
     [Fact(DisplayName = "Make sure that Change password should update password and set updated date")]
@@ -88,6 +84,7 @@ public class UserTests
         user.ChangePassword(null);
 
         // Assert
+        user.ValidationResult.Errors.Should().Contain(x => x.Message == "Senha deve ser informada.");
     }
 
     [Fact(DisplayName = "Make sure that Protected constructor allows EF instantiation")]

@@ -10,15 +10,16 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
     public const int SaltMaxLength = 50;
     public const int HashMaxLength = 256;
 
-    private string plainPassword;
+    private readonly string plainPassword;
 
     public string Hash { get; }
     public string Salt { get; }
 
-    private Password(string hash, string salt)
+    private Password(string hash, string salt, string? plainPassword = null)
     {
         Hash = hash;
         Salt = salt;
+        this.plainPassword = plainPassword;
 
         Validate();
     }
@@ -73,7 +74,7 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
     private static bool IsStrongEnough(string password)
     {
         // Exemplo simplificado: pelo menos 8 chars, 1 número, 1 maiúscula
-        return password.Length >= 8 &&
+        return password?.Length >= 8 &&
                System.Text.RegularExpressions.Regex.IsMatch(password, @"[A-Z]") &&
                System.Text.RegularExpressions.Regex.IsMatch(password, @"[0-9]");
     }

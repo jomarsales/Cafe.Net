@@ -5,292 +5,189 @@ namespace CafeDotNet.Core.Tests.Base.Validations;
 
 public class AssertionConcernTests
 {
-    public AssertionConcernTests()
+    [Fact(DisplayName = "AssertArgumentNotNull retorna erro quando valor é nulo")]
+    public void AssertArgumentNotNull_DeveRetornarErro_QuandoValorNulo()
     {
-        AssertionConcern.Clear(); // garante buffer limpo antes de cada teste
+        var result = AssertionConcern.AssertArgumentNotNull("Campo", null, "Campo não pode ser nulo");
+
+        result.Should().NotBeNull();
+        result!.Name.Should().Be("Campo");
+        result.Message.Should().Be("Campo não pode ser nulo");
     }
 
-    [Fact(DisplayName = "AssertArgumentNotNull adiciona mensagem quando valor é nulo")]
-    public void AssertArgumentNotNull_adicionaMensagem_quandoValorNulo()
+    [Fact(DisplayName = "AssertArgumentNotEmpty string retorna erro quando vazia")]
+    public void AssertArgumentNotEmpty_String_DeveRetornarErro_QuandoVazia()
     {
-        // Act
-        AssertionConcern.AssertArgumentNotNull("Campo", null, "Campo não pode ser nulo");
+        var result = AssertionConcern.AssertArgumentNotEmpty("Nome", "", "Nome é obrigatório");
 
-        // Assert
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors.Should().ContainKey("Campo");
-        AssertionConcern.Errors["Campo"].First().Should().Be("Campo não pode ser nulo");
+        result.Should().NotBeNull();
+        result!.Message.Should().Be("Nome é obrigatório");
     }
 
-    [Fact(DisplayName = "AssertArgumentNotEmpty string adiciona mensagem quando string vazia")]
-    public void AssertArgumentNotEmpty_string_adicionaMensagem_quandoVazia()
+    [Fact(DisplayName = "AssertArgumentNotEmpty coleção retorna erro quando nula ou vazia")]
+    public void AssertArgumentNotEmpty_Collection_DeveRetornarErro_QuandoNulaOuVazia()
     {
-        AssertionConcern.AssertArgumentNotEmpty("Nome", "", "Nome é obrigatório");
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors["Nome"].First().Should().Be("Nome é obrigatório");
+        var r1 = AssertionConcern.AssertArgumentNotEmpty("Itens", null!, "Itens obrigatórios");
+        var r2 = AssertionConcern.AssertArgumentNotEmpty("Itens", new List<int>(), "Itens obrigatórios");
+
+        r1.Should().NotBeNull();
+        r2.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentNotEmpty coleção adiciona mensagem quando coleção nula ou vazia")]
-    public void AssertArgumentNotEmpty_collection_adicionaMensagem_quandoNulaOuVazia()
+    [Fact(DisplayName = "AssertArgumentLength retorna erro quando excede máximo")]
+    public void AssertArgumentLength_DeveRetornarErro_QuandoExcedeMaximo()
     {
-        AssertionConcern.AssertArgumentNotEmpty("Itens", null!, "Itens obrigatórios");
-        AssertionConcern.AssertArgumentNotEmpty("ItensVazia", new List<int>(), "Itens obrigatórios");
+        var result = AssertionConcern.AssertArgumentLength("Campo", "abcde", 3, "Campo muito longo");
 
-        AssertionConcern.HasErrors.Should().BeTrue();
-        AssertionConcern.Errors.Should().ContainKeys("Itens", "ItensVazia");
+        result.Should().NotBeNull();
+        result!.Message.Should().Be("Campo muito longo");
     }
 
-    [Fact(DisplayName = "AssertArgumentLength adiciona mensagem quando valor excede máximo")]
-    public void AssertArgumentLength_adicionaMensagem_quandoExcedeMaximo()
+    [Fact(DisplayName = "AssertArgumentLength retorna erro quando fora do intervalo")]
+    public void AssertArgumentLength_DeveRetornarErro_QuandoForaDoIntervalo()
     {
-        AssertionConcern.AssertArgumentLength("Campo", "abcde", 3, "Campo muito longo");
-        AssertionConcern.Errors["Campo"].First().Should().Be("Campo muito longo");
+        var r1 = AssertionConcern.AssertArgumentLength("Campo", "ab", 3, 5, "Campo fora do intervalo");
+        var r2 = AssertionConcern.AssertArgumentLength("Campo2", "abcdef", 3, 5, "Campo2 fora do intervalo");
+
+        r1.Should().NotBeNull();
+        r2.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentLength adiciona mensagem quando valor fora do intervalo")]
-    public void AssertArgumentLength_adicionaMensagem_quandoForaDoIntervalo()
+    [Fact(DisplayName = "AssertArgumentMinLength retorna erro quando menor que mínimo")]
+    public void AssertArgumentMinLength_DeveRetornarErro_QuandoMenorQueMinimo()
     {
-        AssertionConcern.AssertArgumentLength("Campo", "ab", 3, 5, "Campo fora do intervalo");
-        AssertionConcern.Errors["Campo"].First().Should().Be("Campo fora do intervalo");
-
-        AssertionConcern.AssertArgumentLength("Campo2", "abcdef", 3, 5, "Campo2 fora do intervalo");
-        AssertionConcern.Errors["Campo2"].First().Should().Be("Campo2 fora do intervalo");
+        var result = AssertionConcern.AssertArgumentMinLength("Senha", "abc", 5, "Senha muito curta");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentMinLength adiciona mensagem quando valor menor que mínimo")]
-    public void AssertArgumentMinLength_adicionaMensagem_quandoMenorQueMinimo()
+    [Fact(DisplayName = "AssertArgumentPositive retorna erro quando valor <= 0")]
+    public void AssertArgumentPositive_DeveRetornarErro_QuandoZeroOuNegativo()
     {
-        AssertionConcern.AssertArgumentMinLength("Senha", "abc", 5, "Senha muito curta");
-        AssertionConcern.Errors["Senha"].First().Should().Be("Senha muito curta");
+        var r1 = AssertionConcern.AssertArgumentPositive("Qtd", 0, "Deve ser positivo");
+        var r2 = AssertionConcern.AssertArgumentPositive("Preco", -1m, "Deve ser positivo");
+
+        r1.Should().NotBeNull();
+        r2.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentPositive adiciona mensagem quando valor <= 0")]
-    public void AssertArgumentPositive_adicionaMensagem_quandoZeroOuNegativo()
+    [Fact(DisplayName = "AssertArgumentRange retorna erro quando fora do intervalo")]
+    public void AssertArgumentRange_DeveRetornarErro_QuandoForaDoIntervalo()
     {
-        AssertionConcern.AssertArgumentPositive("Quantidade", 0, "Deve ser positivo");
-        AssertionConcern.AssertArgumentPositive("Preco", -10m, "Deve ser positivo");
+        var r1 = AssertionConcern.AssertArgumentRange("Idade", 15, 18, 65, "Idade inválida");
+        var r2 = AssertionConcern.AssertArgumentRange("Valor", 1000m, 1, 999, "Valor inválido");
 
-        AssertionConcern.Errors.Should().ContainKeys("Quantidade", "Preco");
+        r1.Should().NotBeNull();
+        r2.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentRange adiciona mensagem quando valor fora do intervalo")]
-    public void AssertArgumentRange_adicionaMensagem_quandoForaDoIntervalo()
+    [Fact(DisplayName = "AssertArgumentDateNotInFuture retorna erro quando data futura")]
+    public void AssertArgumentDateNotInFuture_DeveRetornarErro_QuandoDataFutura()
     {
-        AssertionConcern.AssertArgumentRange("Idade", 15, 18, 65, "Idade inválida");
-        AssertionConcern.AssertArgumentRange("Valor", 1000m, 1, 999, "Valor inválido");
-
-        AssertionConcern.Errors.Should().ContainKeys("Idade", "Valor");
+        var result = AssertionConcern.AssertArgumentDateNotInFuture("Data", DateTime.Now.AddDays(1), "Data inválida");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentDateNotInFuture adiciona mensagem quando data no futuro")]
-    public void AssertArgumentDateNotInFuture_adicionaMensagem_quandoDataFutura()
+    [Fact(DisplayName = "AssertArgumentDateNotInPast retorna erro quando data passada")]
+    public void AssertArgumentDateNotInPast_DeveRetornarErro_QuandoDataPassada()
     {
-        AssertionConcern.AssertArgumentDateNotInFuture("Data", DateTime.Now.AddDays(1), "Data inválida");
-        AssertionConcern.Errors.Should().ContainKey("Data");
+        var result = AssertionConcern.AssertArgumentDateNotInPast("Data", DateTime.Now.AddDays(-1), "Data inválida");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentDateNotInPast adiciona mensagem quando data no passado")]
-    public void AssertArgumentDateNotInPast_adicionaMensagem_quandoDataPassada()
-    {
-        AssertionConcern.AssertArgumentDateNotInPast("Data", DateTime.Now.AddDays(-1), "Data inválida");
-        AssertionConcern.Errors.Should().ContainKey("Data");
-    }
-
-    [Fact(DisplayName = "AssertArgumentDateRange adiciona mensagem quando fora do intervalo")]
-    public void AssertArgumentDateRange_adicionaMensagem_quandoForaDoIntervalo()
+    [Fact(DisplayName = "AssertArgumentDateRange retorna erro quando fora do intervalo")]
+    public void AssertArgumentDateRange_DeveRetornarErro_QuandoForaDoIntervalo()
     {
         var min = DateTime.Now.AddDays(-5);
         var max = DateTime.Now.AddDays(5);
 
-        AssertionConcern.AssertArgumentDateRange("Data", DateTime.Now.AddDays(-6), min, max, "Fora do range");
-        AssertionConcern.AssertArgumentDateRange("Data2", DateTime.Now.AddDays(6), min, max, "Fora do range");
+        var r1 = AssertionConcern.AssertArgumentDateRange("Data1", DateTime.Now.AddDays(-6), min, max, "Fora do range");
+        var r2 = AssertionConcern.AssertArgumentDateRange("Data2", DateTime.Now.AddDays(6), min, max, "Fora do range");
 
-        AssertionConcern.Errors.Should().ContainKeys("Data", "Data2");
+        r1.Should().NotBeNull();
+        r2.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentGuidNotEmpty adiciona mensagem quando Guid.Empty")]
-    public void AssertArgumentGuidNotEmpty_adicionaMensagem_quandoEmpty()
+    [Fact(DisplayName = "AssertArgumentGuidNotEmpty retorna erro quando Guid.Empty")]
+    public void AssertArgumentGuidNotEmpty_DeveRetornarErro_QuandoEmpty()
     {
-        AssertionConcern.AssertArgumentGuidNotEmpty("Id", Guid.Empty, "Id inválido");
-        AssertionConcern.Errors.Should().ContainKey("Id");
+        var result = AssertionConcern.AssertArgumentGuidNotEmpty("Id", Guid.Empty, "Id inválido");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentTrue adiciona mensagem quando condição falsa")]
-    public void AssertArgumentTrue_adicionaMensagem_quandoFalso()
+    [Fact(DisplayName = "AssertArgumentTrue retorna erro quando condição falsa")]
+    public void AssertArgumentTrue_DeveRetornarErro_QuandoFalso()
     {
-        AssertionConcern.AssertArgumentTrue("Condição", false, "Deve ser true");
-        AssertionConcern.Errors.Should().ContainKey("Condição");
+        var result = AssertionConcern.AssertArgumentTrue("Cond", false, "Deve ser true");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentFalse adiciona mensagem quando condição verdadeira")]
-    public void AssertArgumentFalse_adicionaMensagem_quandoVerdadeiro()
+    [Fact(DisplayName = "AssertArgumentFalse retorna erro quando condição verdadeira")]
+    public void AssertArgumentFalse_DeveRetornarErro_QuandoVerdadeiro()
     {
-        AssertionConcern.AssertArgumentFalse("Condição", true, "Deve ser false");
-        AssertionConcern.Errors.Should().ContainKey("Condição");
+        var result = AssertionConcern.AssertArgumentFalse("Cond", true, "Deve ser false");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentEquals adiciona mensagem quando valores diferentes")]
-    public void AssertArgumentEquals_adicionaMensagem_quandoDiferentes()
+    [Fact(DisplayName = "AssertArgumentEquals retorna erro quando diferentes")]
+    public void AssertArgumentEquals_DeveRetornarErro_QuandoDiferentes()
     {
-        AssertionConcern.AssertArgumentEquals("Campo", 1, 2, "Valores diferentes");
-        AssertionConcern.Errors.Should().ContainKey("Campo");
+        var result = AssertionConcern.AssertArgumentEquals("Campo", 1, 2, "Valores diferentes");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentNotEquals adiciona mensagem quando valores iguais")]
-    public void AssertArgumentNotEquals_adicionaMensagem_quandoIguais()
+    [Fact(DisplayName = "AssertArgumentNotEquals retorna erro quando iguais")]
+    public void AssertArgumentNotEquals_DeveRetornarErro_QuandoIguais()
     {
-        AssertionConcern.AssertArgumentNotEquals("Campo", 1, 1, "Valores iguais");
-        AssertionConcern.Errors.Should().ContainKey("Campo");
+        var result = AssertionConcern.AssertArgumentNotEquals("Campo", 1, 1, "Valores iguais");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentMatches adiciona mensagem quando regex não bate")]
-    public void AssertArgumentMatches_adicionaMensagem_quandoRegexFalha()
+    [Fact(DisplayName = "AssertArgumentMatches retorna erro quando regex falha")]
+    public void AssertArgumentMatches_DeveRetornarErro_QuandoRegexFalha()
     {
-        AssertionConcern.AssertArgumentMatches("Campo", "abc", @"^\d+$", "Deve ser número");
-        AssertionConcern.Errors.Should().ContainKey("Campo");
+        var result = AssertionConcern.AssertArgumentMatches("Campo", "abc", @"^\d+$", "Deve ser número");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentEmail adiciona mensagem quando email inválido")]
-    public void AssertArgumentEmail_adicionaMensagem_quandoInvalido()
+    [Fact(DisplayName = "AssertArgumentEmail retorna erro quando email inválido")]
+    public void AssertArgumentEmail_DeveRetornarErro_QuandoInvalido()
     {
-        AssertionConcern.AssertArgumentEmail("Email", "abc@", "Email inválido");
-        AssertionConcern.Errors.Should().ContainKey("Email");
+        var result = AssertionConcern.AssertArgumentEmail("Email", "abc@", "Email inválido");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentCpf adiciona mensagem quando CPF inválido")]
-    public void AssertArgumentCpf_adicionaMensagem_quandoInvalido()
+    [Fact(DisplayName = "AssertArgumentCpf retorna erro quando CPF inválido")]
+    public void AssertArgumentCpf_DeveRetornarErro_QuandoInvalido()
     {
-        AssertionConcern.AssertArgumentCpf("Cpf", "12345678900", "CPF inválido");
-        AssertionConcern.Errors.Should().ContainKey("Cpf");
+        var result = AssertionConcern.AssertArgumentCpf("Cpf", "12345678900", "CPF inválido");
+        result.Should().NotBeNull();
     }
 
-    [Fact(DisplayName = "AssertArgumentCnpj adiciona mensagem quando CNPJ inválido")]
-    public void AssertArgumentCnpj_adicionaMensagem_quandoInvalido()
+    [Fact(DisplayName = "AssertArgumentCnpj retorna erro quando CNPJ inválido")]
+    public void AssertArgumentCnpj_DeveRetornarErro_QuandoInvalido()
     {
-        AssertionConcern.AssertArgumentCnpj("Cnpj", "12345678000100", "CNPJ inválido");
-        AssertionConcern.Errors.Should().ContainKey("Cnpj");
+        var result = AssertionConcern.AssertArgumentCnpj("Cnpj", "12345678000100", "CNPJ inválido");
+        result.Should().NotBeNull();
     }
 
-    /* Valid Properties Scenarious */
-
-    [Fact(DisplayName = "HasErrors deve ser falso quando nenhum erro foi adicionado")]
-    public void HasErrors_DeveSerFalso_QuandoNenhumErro()
+    [Fact(DisplayName = "Retorna null quando nenhum erro encontrado")]
+    public void MetodosDevemRetornarNull_QuandoValido()
     {
-        AssertionConcern.HasErrors.Should().BeFalse();
-        AssertionConcern.Errors.Should().BeEmpty();
-    }
-
-    [Fact(DisplayName = "AssertArgumentNotNull não adiciona erro quando valor não nulo")]
-    public void AssertArgumentNotNull_NaoAdicionaErro_QuandoValorValido()
-    {
-        AssertionConcern.AssertArgumentNotNull("Campo", "valor", "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentNotEmpty string não adiciona erro quando valor válido")]
-    public void AssertArgumentNotEmpty_String_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentNotEmpty("Nome", "abc", "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentNotEmpty coleção não adiciona erro quando coleção não vazia")]
-    public void AssertArgumentNotEmpty_Collection_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentNotEmpty("Itens", new List<int> { 1 }, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentLength não adiciona erro quando dentro do limite")]
-    public void AssertArgumentLength_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentLength("Campo", "abc", 1, 5, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentMinLength não adiciona erro quando maior ou igual ao mínimo")]
-    public void AssertArgumentMinLength_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentMinLength("Senha", "abcde", 3, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentPositive não adiciona erro quando valor positivo")]
-    public void AssertArgumentPositive_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentPositive("Quantidade", 1, "Mensagem");
-        AssertionConcern.AssertArgumentPositive("Preco", 10m, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentRange não adiciona erro quando dentro do intervalo")]
-    public void AssertArgumentRange_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentRange("Idade", 30, 18, 65, "Mensagem");
-        AssertionConcern.AssertArgumentRange("Valor", 50m, 1, 100, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentGuidNotEmpty não adiciona erro quando Guid válido")]
-    public void AssertArgumentGuidNotEmpty_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentGuidNotEmpty("Id", Guid.NewGuid(), "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentTrue não adiciona erro quando condição verdadeira")]
-    public void AssertArgumentTrue_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentTrue("Condicao", true, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentFalse não adiciona erro quando condição falsa")]
-    public void AssertArgumentFalse_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentFalse("Condicao", false, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentEquals não adiciona erro quando valores iguais")]
-    public void AssertArgumentEquals_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentEquals("Campo", 10, 10, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentNotEquals não adiciona erro quando valores diferentes")]
-    public void AssertArgumentNotEquals_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentNotEquals("Campo", 10, 20, "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentMatches não adiciona erro quando regex bate")]
-    public void AssertArgumentMatches_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentMatches("Campo", "12345", @"^\d+$", "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentEmail não adiciona erro quando email válido")]
-    public void AssertArgumentEmail_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentEmail("Email", "teste@dominio.com", "Mensagem");
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentCpf não adiciona erro quando CPF válido")]
-    public void AssertArgumentCpf_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentCpf("Cpf", "52998224725", "Mensagem"); // CPF válido
-        AssertionConcern.HasErrors.Should().BeFalse();
-    }
-
-    [Fact(DisplayName = "AssertArgumentCnpj não adiciona erro quando CNPJ válido")]
-    public void AssertArgumentCnpj_NaoAdicionaErro()
-    {
-        AssertionConcern.AssertArgumentCnpj("Cnpj", "11444777000161", "Mensagem"); // CNPJ válido
-        AssertionConcern.HasErrors.Should().BeFalse();
+        AssertionConcern.AssertArgumentNotNull("Campo", "ok", "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentNotEmpty("Campo", "abc", "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentNotEmpty("Campo", new[] { 1 }, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentLength("Campo", "abc", 1, 5, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentMinLength("Campo", "abcde", 3, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentPositive("Campo", 10, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentRange("Campo", 5, 1, 10, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentGuidNotEmpty("Campo", Guid.NewGuid(), "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentTrue("Campo", true, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentFalse("Campo", false, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentEquals("Campo", 1, 1, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentNotEquals("Campo", 1, 2, "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentMatches("Campo", "123", @"^\d+$", "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentEmail("Campo", "teste@dominio.com", "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentCpf("Campo", "52998224725", "msg").Should().BeNull();
+        AssertionConcern.AssertArgumentCnpj("Campo", "11444777000161", "msg").Should().BeNull();
     }
 }

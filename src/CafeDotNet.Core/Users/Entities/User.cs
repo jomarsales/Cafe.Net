@@ -22,6 +22,7 @@ public class User : EntityBase
         Role = RoleType.None;
 
         Activate();
+        Validate();
     }
 
     public void ChangePassword(Password newPassword)
@@ -29,6 +30,7 @@ public class User : EntityBase
         Password = newPassword;
 
         SetUpdated();
+        Validate();
     }
 
     public void RemoveRole() => Role = RoleType.None;
@@ -41,6 +43,9 @@ public class User : EntityBase
         ValidationResult.Add(AssertionConcern.AssertArgumentLength(nameof(Username), Username, UsernameMaxLength, $"Usuário precisa conter até {UsernameMaxLength} caracteres."));
 
         ValidationResult.Add(AssertionConcern.AssertArgumentNotNull(nameof(Password), Password, "Senha deve ser informada."));
-        ValidationResult.Add(AssertionConcern.AssertArgumentTrue(nameof(Password), Password.ValidationResult.IsValid, "Seha inválida."));
+        if (Password != null)
+        {
+            ValidationResult.Add(AssertionConcern.AssertArgumentTrue(nameof(Password), Password.ValidationResult.IsValid, "Seha inválida."));
+        }
     }
 }
