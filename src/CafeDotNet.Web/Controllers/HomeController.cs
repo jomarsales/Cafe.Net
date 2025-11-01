@@ -1,9 +1,10 @@
+using CafeDotNet.Core.DomainServices.Interfaces;
+using CafeDotNet.Core.DomainServices.Services;
 using CafeDotNet.Infra.Mail.Interfaces;
 using CafeDotNet.Web.Enums;
 using CafeDotNet.Web.Helpers;
 using CafeDotNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace CafeDotNet.Web.Controllers
 {
@@ -11,7 +12,11 @@ namespace CafeDotNet.Web.Controllers
     {
         private readonly IEmailService _emailService;
 
-        public HomeController(ILogger<HomeController> logger, IEmailService emailService) : base(logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IEmailService emailService,
+            IHandler<DomainNotification> notifications) : 
+            base(logger, notifications)
         {
             _emailService = emailService;
         }

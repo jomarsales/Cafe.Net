@@ -1,4 +1,5 @@
 ﻿using CafeDotNet.Core.Validation;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CafeDotNet.Core.Base.Entities;
 
@@ -9,6 +10,7 @@ public abstract class EntityBase
     public DateTime? UpdatedAt { get; private set; }
     public bool IsActive { get; private set; }
 
+    [NotMapped]
     public ValidationResult ValidationResult { get; set; }
 
     protected EntityBase()

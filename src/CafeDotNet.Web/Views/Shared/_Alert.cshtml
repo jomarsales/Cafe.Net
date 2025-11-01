@@ -9,7 +9,7 @@
 
 @if (alert != null)
 {
-    <div data-aos="flip-up" id="topAlert" class="@alert.CssClass alert-dismissible fade show fixed-top mx-auto w-auto" style="top: 20px; max-width: 400px; z-index: 1050; text-align:center;" role="alert">
+    <div id="topAlert" data-aos="flip-up" class="@alert.CssClass alert-dismissible fade show fixed-top mx-auto w-auto" role="alert">
         @alert.Message
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

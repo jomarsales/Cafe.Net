@@ -14,6 +14,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddCustomEmailSettings(builder.Configuration);
 builder.Services.AddDatabaseProvider(builder.Configuration);
 
+builder.Services.RegisterAutoMapperProfiles();
 builder.Services.RegisterEmailServices();
 builder.Services.RegisterCoreServices();
 builder.Services.RegisterDatabaseServices();

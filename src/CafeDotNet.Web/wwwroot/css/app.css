@@ -12612,24 +12612,17 @@ header.masthead {
     top: 100px;
 }
 
-/* END App Styles */
-
-/* Admin */
-
-.body-admin {
-    font-family: 'Open Sans', sans-serif;
-    background-color: var(--bs-body-bg-admin);
-    color: #343a40;
-    width: 100%;
-    min-height: 100vh;
-    display: flex; /* agora align-items e justify-content funcionam */
-    align-items: center;
-    justify-content: center;
-    padding-top: 140px; /* substitui o margin-top */
-    box-sizing: border-box;
+#topAlert {
+    position: fixed !important;
+    top: 20px !important;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999 !important;
+    width: auto;
+    text-align: center;
 }
 
-/* END Admin */
+/* END App Styles */
 
 /* Login */
 
@@ -12658,3 +12651,55 @@ header.masthead {
     }
 
 /* END Login */
+
+/* Admin */
+
+.body-admin {
+    margin-top: 83px;
+    margin-bottom: -83px;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 83PX);
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bs-body-bg-admin);
+    color: #343a40;
+}
+
+    .body-admin main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+.body-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--bs-body-bg-admin);
+}
+
+.navbar .dropdown-toggle {
+    color: #fff;
+    font-weight: 500;
+}
+
+    .navbar .dropdown-toggle:hover {
+        color: #f8f9fa;
+    }
+
+.dropdown-menu {
+    background-color: #b1c1d1;
+    color: #fff;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 0.75rem;
+    font-weight: 800;
+    min-width: 180px;
+    border-radius: 0.3rem;
+    margin-top: -18px;
+}
+
+/* END Admin */

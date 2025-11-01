@@ -10,10 +10,12 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
     public const int SaltMaxLength = 50;
     public const int HashMaxLength = 256;
 
-    private readonly string plainPassword;
+    private readonly string? plainPassword;
 
     public string Hash { get; }
     public string Salt { get; }
+
+    private Password() { }
 
     private Password(string hash, string salt, string? plainPassword = null)
     {

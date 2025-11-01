@@ -1,4 +1,6 @@
-﻿using CafeDotNet.Manager.Articles.Dtos;
+﻿using CafeDotNet.Core.DomainServices.Interfaces;
+using CafeDotNet.Core.DomainServices.Services;
+using CafeDotNet.Manager.Articles.Dtos;
 using CafeDotNet.Manager.Helpers;
 using CafeDotNet.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +11,7 @@ namespace CafeDotNet.Web.Controllers
     {
         private readonly List<ArticleListItemDto> _mockArtigos;
 
-        public PostController(ILogger<PostController> logger) : base(logger)
+        public PostController(ILogger<PostController> logger, IHandler<DomainNotification> notifications) : base(logger, notifications)
         {
             _mockArtigos = Enumerable.Range(1, 27)
                 .Select(i => new ArticleListItemDto(i, $"Artigo de Exemplo #{i}", i % 2 == 0 ? "Um subtítulo opcional" : ""))
