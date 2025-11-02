@@ -25,8 +25,6 @@ public class CafeDbContext : DbContext
     {
         base.OnConfiguring(optionsBuilder);
 
-        optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
         var serviceProvider = optionsBuilder.Options.GetExtension<CoreOptionsExtension>()?.ApplicationServiceProvider;
        
         var logger = serviceProvider?.GetService<ILogger<CafeDbContext>>();

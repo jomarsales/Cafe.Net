@@ -1,4 +1,4 @@
-﻿namespace CafeDotNet.Infra.Bootstraper.Interfaces;
+﻿namespace CafeDotNet.Infra.Data.Common.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {

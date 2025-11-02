@@ -2,7 +2,8 @@
 using CafeDotNet.Core.DomainServices.Services;
 using CafeDotNet.Core.Users.DTOs;
 using CafeDotNet.Manager.Users.Interfaces;
-using CafeDotNet.Web.Models.Account;
+using CafeDotNet.Web.Enums;
+using CafeDotNet.Web.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,9 +17,9 @@ public class AccountController : BaseController
     private readonly IAuthenticationManager _authenticationManager;
 
     public AccountController(
-        IAuthenticationManager authenticationManager, 
-        ILogger<BaseController> logger, 
-        IHandler<DomainNotification> notifications) : 
+        IAuthenticationManager authenticationManager,
+        ILogger<BaseController> logger,
+        IHandler<DomainNotification> notifications) :
         base(logger, notifications)
     {
         _authenticationManager = authenticationManager;
@@ -27,29 +28,24 @@ public class AccountController : BaseController
     [AllowAnonymous]
     public IActionResult Login()
     {
-        return View(new LoginViewModel());
+        return View(new AuthenticationRequest());
     }
 
     [HttpPost]
     [AllowAnonymous]
-    public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
+    public async Task<IActionResult> Login(AuthenticationRequest model, string? returnUrl = null)
     {
         if (!ModelState.IsValid)
             return View(model);
 
-        var request = new AuthenticationRequest
-        {
-            Username = model.Username,
-            Password = model.Password
-        };
-
-        var result = await _authenticationManager.AuthenticateUserAsyn(request);
+        var result = await _authenticationManager.AuthenticateUserAsyn(model);
 
         if (HasErrors())
             return View(model);
 
         var claims = new List<Claim>
         {
+            new(ClaimTypes.NameIdentifier, result.Id.ToString()),
             new(ClaimTypes.Name, result.Username!),
             new(ClaimTypes.Role, result.Role.ToString())
         };
@@ -81,5 +77,27 @@ public class AccountController : BaseController
     public IActionResult AccessDenied()
     {
         return View();
+    }
+
+    [HttpGet]
+    public IActionResult ChangePassword()
+    {
+        return View(new ChangePasswordRequest());
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ChangePassword(ChangePasswordRequest model)
+    {
+            if (!ModelState.IsValid)
+            return View(model);
+       
+        await _authenticationManager.ChangePasswordAsync(model);
+        
+        if (HasErrors())
+            return View(model);
+        
+        this.SetAlert("Senha alterada com sucesso.", AlertType.Success);
+        
+        return View(new ChangePasswordRequest());
     }
 }

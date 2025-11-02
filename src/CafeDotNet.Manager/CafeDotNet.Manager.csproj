@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CafeDotNet.Core\CafeDotNet.Core.csproj" />
+    <ProjectReference Include="..\CafeDotNet.Infra.Data.Common\CafeDotNet.Infra.Data.Common.csproj" />
   </ItemGroup>
 
 </Project>

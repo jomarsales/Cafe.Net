@@ -1,5 +1,5 @@
-﻿using CafeDotNet.Infra.Bootstraper.Interfaces;
-using CafeDotNet.Infra.Data.Common.Context;
+﻿using CafeDotNet.Infra.Data.Common.Context;
+using CafeDotNet.Infra.Data.Common.Interfaces;
 
 namespace CafeDotNet.Infra.Bootstraper.Services;
 

@@ -10,18 +10,17 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
     public const int SaltMaxLength = 50;
     public const int HashMaxLength = 256;
 
-    private readonly string? plainPassword;
+    private static string? _plainPassword;
 
     public string Hash { get; }
     public string Salt { get; }
 
     private Password() { }
 
-    private Password(string hash, string salt, string? plainPassword = null)
+    private Password(string hash, string salt)
     {
         Hash = hash;
         Salt = salt;
-        this.plainPassword = plainPassword;
 
         Validate();
     }
@@ -31,7 +30,7 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
     /// </summary>
     public static Password Create(string plainPassword)
     {
-        plainPassword = plainPassword ?? string.Empty;
+        _plainPassword = plainPassword ?? string.Empty;
 
         var salt = GenerateSalt();
         var hash = HashPassword(plainPassword, salt);
@@ -49,6 +48,8 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
 
     public bool Verify(string plainPassword)
     {
+        ValidationResult.Add(AssertionConcern.AssertArgumentNotEmpty(nameof(Password), plainPassword, "Senha não pode ser vazia."));
+
         var hashToCompare = HashPassword(plainPassword, Salt);
 
         return hashToCompare == Hash;
@@ -96,9 +97,7 @@ public sealed class Password : ValueObjectBase, IEquatable<Password>
 
     protected override void Validate()
     {
-        ValidationResult.Add(AssertionConcern.AssertArgumentNotEmpty(nameof(Password), plainPassword, "Senha não pode ser vazia."));
-        ValidationResult.Add(AssertionConcern.AssertArgumentTrue(nameof(Password), IsStrongEnough(plainPassword), "Senha não atende aos requisitos mínimos de segurança."));
-
+        ValidationResult.Add(AssertionConcern.AssertArgumentTrue(nameof(Password), IsStrongEnough(_plainPassword), "Senha não atende aos requisitos mínimos de segurança."));
         ValidationResult.Add(AssertionConcern.AssertArgumentNotEmpty(nameof(Hash), Hash, "Hash da senha não pode ser vazia."));
         ValidationResult.Add(AssertionConcern.AssertArgumentLength(nameof(Hash), Hash, HashMaxLength, $"Hash da senha precisa conter {HashMaxLength} caracteres"));
 

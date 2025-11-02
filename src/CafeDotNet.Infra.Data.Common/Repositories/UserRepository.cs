@@ -5,17 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CafeDotNet.Infra.Data.Common.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository : BaseRepository<User>, IUserRepository
 {
     private readonly CafeDbContext _cafeDbContext;
 
-    public UserRepository(CafeDbContext cafeDbContext)
+    public UserRepository(CafeDbContext cafeDbContext) : base(cafeDbContext)
     {
         _cafeDbContext = cafeDbContext;
     }
 
-    public async Task<User?> GetUserAsync(string username)
-    {
-        return await _cafeDbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
-    }
+    public async Task<User?> GetUserAsync(string username) => await _cafeDbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
 }

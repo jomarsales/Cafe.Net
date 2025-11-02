@@ -1,4 +1,5 @@
-﻿using CafeDotNet.Core.Users.Interfaces;
+﻿using CafeDotNet.Core.Base.Repositories;
+using CafeDotNet.Core.Users.Interfaces;
 using CafeDotNet.Infra.Data.Common.DTOs;
 using CafeDotNet.Infra.Data.Common.Repositories;
 using CafeDotNet.Infra.Data.MySql.Extensions;
@@ -52,6 +53,8 @@ namespace CafeDotNet.Infra.Bootstraper.Helpers
 
         public static IServiceCollection RegisterDatabaseServices(this IServiceCollection services)
         {
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
             services.AddScoped<IUserRepository, UserRepository>();
 
             return services;

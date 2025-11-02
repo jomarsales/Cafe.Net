@@ -45,7 +45,13 @@ public class User : EntityBase
         ValidationResult.Add(AssertionConcern.AssertArgumentNotNull(nameof(Password), Password, "Senha deve ser informada."));
         if (Password != null)
         {
-            ValidationResult.Add(AssertionConcern.AssertArgumentTrue(nameof(Password), Password.ValidationResult.IsValid, "Seha inválida."));
+            if (!Password.ValidationResult.IsValid)
+            {
+                foreach (var error in Password.ValidationResult.Errors)
+                {
+                    ValidationResult.Add(error);
+                }
+            }
         }
     }
 }

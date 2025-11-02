@@ -19,11 +19,8 @@ public class UserService : DomainService, IUserService
 
     public async Task<User?> GetUserAsync(AuthenticationRequest request)
     {
-        if (!HasCompliance(request.ValidationResult))
-            return null;
-
         var user = await _userRepository.GetUserAsync(request.Username!);
-       
+
         AddNotification(AssertionConcern.AssertArgumentNotNull(nameof(user), user, $"Usuário '{request.Username}' não encontrado no sistema."));
 
         if (!HasCompliance(user!.ValidationResult))
@@ -35,5 +32,32 @@ public class UserService : DomainService, IUserService
         AddNotification(AssertionConcern.AssertArgumentTrue(nameof(user), isPasswordValid, "Senha incorreta."));
 
         return HasCompliance(user!.ValidationResult) ? user : null;
+    }
+
+    public async Task ChangePasswordAsync(ChangePasswordRequest request)
+    {
+        var user = await _userRepository.GetByIdAsync(request.Id);
+
+        AddNotification(AssertionConcern.AssertArgumentNotNull(nameof(user), user, "Usuário não encontrado no sistema."));
+
+        if (user == null || !HasCompliance(user!.ValidationResult))
+            return;
+
+        AddNotification(AssertionConcern.AssertArgumentTrue(nameof(user), user.Password.Verify(request.CurrentPassword), "A senha atual está incorreta."));
+
+        if (!HasCompliance(user!.ValidationResult))
+            return;
+
+        var newPassword = Password.Create(request.NewPassword);
+
+        if (!HasCompliance(user!.ValidationResult))
+            return;
+
+        user.ChangePassword(newPassword);
+
+        if (HasCompliance(user.ValidationResult))
+        {
+            await _userRepository.UpdateAsync(user);
+        }
     }
 }

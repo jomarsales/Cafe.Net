@@ -2,8 +2,8 @@
 using CafeDotNet.Core.DomainServices.Services;
 using CafeDotNet.Core.Users.Interfaces;
 using CafeDotNet.Core.Users.Services;
-using CafeDotNet.Infra.Bootstraper.Interfaces;
 using CafeDotNet.Infra.Bootstraper.Services;
+using CafeDotNet.Infra.Data.Common.Interfaces;
 using CafeDotNet.Manager.Users.Interfaces;
 using CafeDotNet.Manager.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
