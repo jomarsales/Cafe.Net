@@ -24,9 +24,9 @@ public class ContactViewModel : PageViewModel
     public ContactViewModel()
     {
         Header = HeaderViewModel.Create(
-            bannerImagemPath: "../img/contact-bg.jpg",
+            bannerImagePath: "../img/contact-bg.jpg",
             bannerBackgroundClass: "bg-logo-light",
-            logoTitleImagemPath: "../img/svg/logo-full-black.svg",
+            logoTitleImagePath: "../img/svg/logo-full-black.svg",
             title: "Cafe.Net - Contato",
             subTitle: "Manda uma mensagem, eu preparo o café"
         );

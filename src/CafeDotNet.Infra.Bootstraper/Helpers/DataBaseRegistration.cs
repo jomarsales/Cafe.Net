@@ -1,4 +1,5 @@
 ﻿using CafeDotNet.Core.Base.Repositories;
+using CafeDotNet.Core.Galery.Interfaces;
 using CafeDotNet.Core.Users.Interfaces;
 using CafeDotNet.Infra.Data.Common.DTOs;
 using CafeDotNet.Infra.Data.Common.Repositories;
@@ -56,6 +57,7 @@ namespace CafeDotNet.Infra.Bootstraper.Helpers
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
 
             return services;
         }

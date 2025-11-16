@@ -39,9 +39,9 @@ namespace CafeDotNet.Web.Controllers
             var model = new PageViewModel
             {
                 Header = HeaderViewModel.Create(
-                    bannerImagemPath: Url.Content("~/img/post-bg.jpg"),
+                    bannerImagePath: Url.Content("~/img/post-bg.jpg"),
                     "bg-logo-light",
-                    logoTitleImagemPath: Url.Content("~/img/svg/logo-border-black.svg"),
+                    logoTitleImagePath: Url.Content("~/img/svg/logo-border-black.svg"),
                     title: "Cafe.Net - Post",
                     subTitle: "Reflexões servidas com código e café gourmet"
                 )

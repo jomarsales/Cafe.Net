@@ -27,11 +27,6 @@ public class UserConfig : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.Role).HasConversion<int>().IsRequired();
 
-        //Base
-        builder.Property(a => a.CreatedAt).IsRequired();
-        builder.Property(a => a.UpdatedAt);
-        builder.Property(a => a.IsActive);
-
         builder.HasIndex(x => x.Username).IsUnique(); 
     }
 }

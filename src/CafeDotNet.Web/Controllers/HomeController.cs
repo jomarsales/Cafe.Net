@@ -27,9 +27,9 @@ namespace CafeDotNet.Web.Controllers
             var model = new PageViewModel
             {
                 Header = HeaderViewModel.Create(
-                    bannerImagemPath: Url.Content("~/img/home-bg.jpg"),
+                    bannerImagePath: Url.Content("~/img/home-bg.jpg"),
                     "bg-logo-light",
-                    logoTitleImagemPath: Url.Content("~/img/svg/logo-yellow-black.svg"),
+                    logoTitleImagePath: Url.Content("~/img/svg/logo-yellow-black.svg"),
                     title: "Cafe.Net",
                     subTitle: "Inspirando desenvolvedores .NET a codificar melhor, criar mais e inovar sempre"
                 )
@@ -44,9 +44,9 @@ namespace CafeDotNet.Web.Controllers
             var model = new PageViewModel
             {
                 Header = HeaderViewModel.Create(
-                    bannerImagemPath: Url.Content("~/img/about-bg.jpg"),
+                    bannerImagePath: Url.Content("~/img/about-bg.jpg"),
                     string.Empty,
-                    logoTitleImagemPath: Url.Content("~/img/svg/logo-yellow-white.svg"),
+                    logoTitleImagePath: Url.Content("~/img/svg/logo-yellow-white.svg"),
                     title: "Cafe.Net - Sobre mim",
                     subTitle: "Entre uma xícara de café e outra, escrevo código que inspira"
                 )

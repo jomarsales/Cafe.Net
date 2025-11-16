@@ -1,5 +1,7 @@
 ﻿using CafeDotNet.Core.DomainServices.Interfaces;
 using CafeDotNet.Core.DomainServices.Services;
+using CafeDotNet.Core.Galery.Interfaces;
+using CafeDotNet.Core.Galery.Services;
 using CafeDotNet.Core.Users.Interfaces;
 using CafeDotNet.Core.Users.Services;
 using CafeDotNet.Infra.Bootstraper.Services;
@@ -19,6 +21,8 @@ namespace CafeDotNet.Infra.Bootstraper.Helpers
             
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IImageService, ImageService>();
 
             return services;
         }
