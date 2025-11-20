@@ -1,0 +1,72 @@
+﻿@using CafeDotNet.Core.Gallery.DTOs
+@model UploadImageRequest
+
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="uploadForm" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Upload Imagem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Arquivo *</label>
+                        <input class="form-control" type="file"
+                               id="File" name="File"
+                               data-val="true"
+                               data-val-required="Selecione um arquivo de imagem.">
+                        <span class="text-danger small field-validation-valid"
+                              data-valmsg-for="File"
+                              data-valmsg-replace="true"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#uploadForm').on('submit', function (e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var formData = new FormData(this);
+        var token = form.find('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            url: '/Galery/Upload',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'RequestVerificationToken': token
+            },
+            success: function (result) {
+                if (result.success) {
+                    $('#uploadModal').modal('hide');
+                    location.reload();
+                } else {
+                    alert(result.message || 'Erro ao salvar imagem.');
+                }
+            },
+            error: function (xhr) {
+                alert('Falha ao enviar: ' + xhr.status);
+            }
+        });
+    });
+</script>

@@ -5,6 +5,7 @@ namespace CafeDotNet.Core.Galery.Entities;
 
 public class Image : EntityBase
 {
+    public const string PathFolder = "img/galery/";
     public const int FileNameMaxLength = 255;
     public const int OriginalNameMaxLength = 255;
     public const int ContentTypeMaxLength = 50;
@@ -53,5 +54,10 @@ public class Image : EntityBase
         {
             ValidationResult.Add(AssertionConcern.AssertArgumentLength(nameof(Description), Description, DescriptionMaxLength, $"Descrição deve ter até {DescriptionMaxLength} caracteres."));
         }
+    }
+
+    public override string ToString()
+    {
+        return Path.Combine(PathFolder, FileName);
     }
 }

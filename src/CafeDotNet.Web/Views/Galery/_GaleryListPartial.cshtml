@@ -1,0 +1,59 @@
+﻿<div class="modal fade" id="galeryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Galeria de Imagens</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="d-flex justify-content-end mb-3">
+                    <button id="btnAddImage" class="btn btn-success">Adicionar</button>
+                </div>
+
+                <div class="row">
+                    @foreach (var image in Model)
+                    {
+                        <div class="col-md-3 text-center mb-3">
+                            <img src="@image.Url" alt="@image.Description" class="img-thumbnail" />
+                            <div>@image.Description</div>
+                            <button class="btn btn-sm btn-primary btnEdit" data-id="@image.Id">Editar</button>
+                            <button class="btn btn-sm btn-danger btnDelete" data-id="@image.Id">Excluir</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#btnAddImage').on('click', function () {
+            $.get('/Galery/Upload', function (html) {
+                $('body').append(html);
+                initUnobtrusiveValidation($('#uploadModal'));
+                $('#uploadModal').modal('show');
+            });
+        });
+
+        $('.btnEdit').on('click', function () {
+            const id = $(this).data('id');
+            $.get('/Galery/Update?id=' + id, function (html) {
+                $('body').append(html);
+                initUnobtrusiveValidation($('#editModal'));
+                $('#editModal').modal('show');
+            });
+        });
+
+        $('.btnDelete').on('click', function () {
+            const id = $(this).data('id');
+            if (confirm('Deseja excluir esta imagem?')) {
+                $.post('/Galery/Delete', { id }, function (result) {
+                    if (result.success) location.reload();
+                    else alert('Falha ao excluir imagem');
+                });
+            }
+        });
+    });
+</script>

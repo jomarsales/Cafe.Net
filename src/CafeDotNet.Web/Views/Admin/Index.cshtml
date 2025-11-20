@@ -1,14 +1,32 @@
 ﻿@{
     Layout = "_LayoutAdmin";
-    ViewData["Title"] = "Café.Net - Admin";
+    ViewData["Title"] = "Café.Net - Galeria de Imagens";
 }
 
 <main class="mb-4">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
-                <h1>Admin Dashboard</h1>
+                <h1>Admin - Galeria</h1>
+                <button id="openGaleryModal" class="btn btn-primary">Abrir Galeria</button>
+                <div id="galeryModalContainer"></div>
             </div>
         </div>
     </div>
 </main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            $('#openGaleryModal').on('click', function () {
+                $.get('/Galery/List', function (html) {
+                    $('#galeryModalContainer').html(html);
+                    initUnobtrusiveValidation($('#galeryModalContainer'));
+                    $('#galeryModal').modal('show');
+                });
+            });
+        });
+    </script>
+}

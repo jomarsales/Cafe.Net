@@ -15,11 +15,16 @@ public class ImageRepository : BaseRepository<Image>, IImageRepository
         _cafeDbContext = cafeDbContext;
     }
 
-    public async Task<ImageUrlDto?> GetImageUrlByIdAsync(int id)
+    public async Task<Image?> GetImageByIdAsync(long id)
+    {
+        return await _cafeDbContext.Images.FindAsync(id);
+    }
+
+    public async Task<GetImagemUrlByIdResponse?> GetImageUrlByIdAsync(long id)
     {
         return await _cafeDbContext.Images
             .Where(img => img.Id == id && img.IsActive)
-            .Select(img => new ImageUrlDto
+            .Select(img => new GetImagemUrlByIdResponse
             {
                 Id = img.Id,
                 Url = "../../img/galery/" + img.FileName
@@ -27,11 +32,11 @@ public class ImageRepository : BaseRepository<Image>, IImageRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<ImageListItemDto>> GetActiveImagesAsync()
+    public async Task<IEnumerable<ImageListItemResponse>> GetActiveImagesAsync()
     {
         return await _cafeDbContext.Images
             .Where(img => img.IsActive)
-            .Select(img => new ImageListItemDto
+            .Select(img => new ImageListItemResponse
             {
                 Id = img.Id,
                 FileName = img.FileName,

@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CafeDotNet.Core.Galery.DTOs;
+using CafeDotNet.Core.Gallery.DTOs;
 
 namespace CafeDotNet.Manager.Galery.Interfaces
 {
-    internal class IGaleryManager
+    public interface IGaleryManager
     {
+        Task<UploadImageResponse> UploadImageAsync(UploadImageRequest request, Stream fileStream);
+
+        Task<UpdateImageResponse> UpdateImageAsync(UpdateImageRequest request, Stream? newFileStream = null);
+
+        Task<IEnumerable<ImageListItemResponse>> GetActiveImagesAsync();
+
+        Task<GetImagemUrlByIdResponse?> GetImageByIdAsync(long id);
+       
+        Task<DeleteImageResponse> DeleteImageAsync(long id);
     }
 }

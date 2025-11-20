@@ -84,3 +84,9 @@ $(function () {
     $("form").on("submit", function () { setTimeout(updateIcons, 10); });
     $("input, textarea").on("input blur keyup", updateIcons); 
 });
+
+function initUnobtrusiveValidation(container) {
+    if ($.validator && $.validator.unobtrusive) {
+        $.validator.unobtrusive.parse(container);
+    }
+}

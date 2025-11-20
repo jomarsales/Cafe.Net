@@ -1,4 +1,5 @@
 using CafeDotNet.Infra.Bootstraper.Helpers;
+using CafeDotNet.Infra.Data.Common.Configurations;
 using CafeDotNet.Infra.Data.Common.Context;
 using CafeDotNet.Infra.Data.Common.SeedHelpers;
 using CafeDotNet.Infra.Logging.Helpers;
@@ -17,6 +18,10 @@ builder.Services.AddDatabaseProvider(builder.Configuration);
 builder.Services.RegisterAutoMapperProfiles();
 builder.Services.RegisterEmailServices();
 builder.Services.RegisterCoreServices();
+
+//Todo move to appsettings.json
+builder.Services.Configure<ImageStorageOptions>(builder.Configuration.GetSection("ImageStorage"));
+
 builder.Services.RegisterDatabaseServices();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

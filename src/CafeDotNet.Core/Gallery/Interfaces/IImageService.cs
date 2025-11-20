@@ -1,15 +1,19 @@
-﻿using CafeDotNet.Core.Base.Repositories;
-using CafeDotNet.Core.Galery.DTOs;
+﻿using CafeDotNet.Core.Galery.DTOs;
+using CafeDotNet.Core.Galery.Entities;
 
 namespace CafeDotNet.Core.Galery.Interfaces;
 
 public interface IImageService
 {
-    Task<IEnumerable<ImageListItemDto>> GetActiveImagesAsync();
+    Task<Image?> GetImageByIdAsync(long id);
 
-    Task<ImageUrlDto?> GetImageUrlByIdAsync(int id);
+    Task<IEnumerable<ImageListItemResponse>> GetActiveImagesAsync();
 
-    Task<Entities.Image> AddImageAsync(Entities.Image image);
+    Task<GetImagemUrlByIdResponse?> GetImageUrlByIdAsync(long id);
 
-    Task<Entities.Image> UpdateImageAsync(Entities.Image image);
+    Task<Image> AddImageAsync(Image image);
+
+    Task<Image> UpdateImageAsync(Image image);
+
+    Task<string?> DeleteImageAsync(long id);
 }

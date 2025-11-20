@@ -6,6 +6,7 @@ namespace CafeDotNet.Core.Galery.Interfaces;
 
 public interface IImageRepository : IBaseRepository<Image>
 {
-    Task<ImageUrlDto?> GetImageUrlByIdAsync(int id);
-    Task<IEnumerable<ImageListItemDto>> GetActiveImagesAsync();
+    Task<Image?> GetImageByIdAsync(long id);
+    Task<GetImagemUrlByIdResponse?> GetImageUrlByIdAsync(long id);
+    Task<IEnumerable<ImageListItemResponse>> GetActiveImagesAsync();
 }
