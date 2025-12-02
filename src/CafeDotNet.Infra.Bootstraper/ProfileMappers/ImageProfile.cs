@@ -11,6 +11,8 @@ public class ImageProfile : Profile
     {
         CreateMap<Image, UploadImageResponse>()
             .ForMember(dest => dest.Url, img => img.MapFrom(org => org.ToString()));
+        CreateMap<Image, UpdateImageResponse>()
+            .ForMember(dest => dest.Url, img => img.MapFrom(org => org.ToString()));
 
         CreateMap<Image, GetImagemUrlByIdResponse>();
         CreateMap<Image, GetImagemUrlByIdResponse>();

@@ -1,8 +1,10 @@
-﻿namespace CafeDotNet.Core.Gallery.DTOs;
+﻿using CafeDotNet.Core.Base.DTOs;
 
-public class UploadImageResponse
+namespace CafeDotNet.Core.Gallery.DTOs;
+
+public class UploadImageResponse : BaseDTOResponse
 {
     public long Id { get; set; }
     public string Url { get; set; } = string.Empty;
-    public bool Success { get; set; } = false;
+    public string? Description { get; set; }
 }

@@ -110,6 +110,8 @@ public class GaleryManager : ApplicationManager, IGaleryManager
             }
         }
 
+        image.ChangeDescription(request.Description);
+
         image = await _imageService.UpdateImageAsync(image);
 
         var commitOk = await CommitAsync();

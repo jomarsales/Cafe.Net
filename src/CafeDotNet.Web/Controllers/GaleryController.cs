@@ -76,7 +76,7 @@ public class GaleryController : BaseController
             Url = image.Url
         };
 
-        return PartialView("_GaleryUploadPartial", model);
+        return PartialView("_GaleryUpdatePartial", model);
     }
 
     [HttpPost]

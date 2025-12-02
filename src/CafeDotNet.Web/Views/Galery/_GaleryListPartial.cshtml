@@ -8,7 +8,7 @@
 
             <div class="modal-body">
                 <div class="d-flex justify-content-end mb-3">
-                    <button id="btnAddImage" class="btn btn-success">Adicionar</button>
+                    <button id="btnUpload" class="btn btn-success">Adicionar</button>
                 </div>
 
                 <div class="row">
@@ -17,7 +17,7 @@
                         <div class="col-md-3 text-center mb-3">
                             <img src="@image.Url" alt="@image.Description" class="img-thumbnail" />
                             <div>@image.Description</div>
-                            <button class="btn btn-sm btn-primary btnEdit" data-id="@image.Id">Editar</button>
+                            <button class="btn btn-sm btn-primary btnUpdate" data-id="@image.Id">Editar</button>
                             <button class="btn btn-sm btn-danger btnDelete" data-id="@image.Id">Excluir</button>
                         </div>
                     }
@@ -29,7 +29,7 @@
 
 <script>
     $(function () {
-        $('#btnAddImage').on('click', function () {
+        $('#btnUpload').on('click', function () {
             $.get('/Galery/Upload', function (html) {
                 $('body').append(html);
                 initUnobtrusiveValidation($('#uploadModal'));
@@ -37,12 +37,12 @@
             });
         });
 
-        $('.btnEdit').on('click', function () {
+        $('.btnUpdate').on('click', function () {
             const id = $(this).data('id');
             $.get('/Galery/Update?id=' + id, function (html) {
                 $('body').append(html);
-                initUnobtrusiveValidation($('#editModal'));
-                $('#editModal').modal('show');
+                initUnobtrusiveValidation($('#updateModal'));
+                $('#updateModal').modal('show');
             });
         });
 

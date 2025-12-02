@@ -27,7 +27,8 @@ public class ImageRepository : BaseRepository<Image>, IImageRepository
             .Select(img => new GetImagemUrlByIdResponse
             {
                 Id = img.Id,
-                Url = "../../img/galery/" + img.FileName
+                Url = "../../img/galery/" + img.FileName,
+                Description = img.Description
             })
             .FirstOrDefaultAsync();
     }
